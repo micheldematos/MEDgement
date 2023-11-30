@@ -150,7 +150,6 @@ public final class JanelaVenda extends javax.swing.JFrame {
 
         botaoCadastrarVend.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         botaoCadastrarVend.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Logo/Adicionar.png"))); // NOI18N
-        botaoCadastrarVend.setToolTipText("");
         botaoCadastrarVend.setMaximumSize(new java.awt.Dimension(35, 35));
         botaoCadastrarVend.setMinimumSize(new java.awt.Dimension(35, 35));
         botaoCadastrarVend.setPreferredSize(new java.awt.Dimension(35, 35));

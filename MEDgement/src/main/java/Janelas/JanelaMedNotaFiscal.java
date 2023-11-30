@@ -4,15 +4,18 @@
  */
 package Janelas;
 import Model.MedNfTableModel;
-import Model.MedVendidosTableModel;
 import Objetos.NotaFiscal;
 import java.awt.Cursor;
+import java.awt.Font;
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
 
 /**
  *
  * @author michel.matos
  */
-public class JanelaMedNotaFiscal extends javax.swing.JFrame {
+public final class JanelaMedNotaFiscal extends javax.swing.JFrame {
 
     /**
      * Creates new form JanelaMedVendidos
@@ -29,6 +32,7 @@ public class JanelaMedNotaFiscal extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         
         TabMedVend.setModel(model);
+        formatar();
     }
     
     public JanelaMedNotaFiscal(NotaFiscal nf, JanelaNf voltar) {
@@ -39,12 +43,12 @@ public class JanelaMedNotaFiscal extends javax.swing.JFrame {
         
         model.recarregaTabelaPesq(String.valueOf(nf.getCodpedido()));
         TabMedVend.setModel(model);
+        formatar();
         
         this.voltar = voltar;
         
     }
     
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -60,7 +64,9 @@ public class JanelaMedNotaFiscal extends javax.swing.JFrame {
         botaoVoltar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
+        TabMedVend.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         TabMedVend.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -145,6 +151,18 @@ public class JanelaMedNotaFiscal extends javax.swing.JFrame {
         this.setCursor(Cursor.DEFAULT_CURSOR);
     }//GEN-LAST:event_botaoVoltarMouseExited
 
+    public void formatar(){
+        JTableHeader tituloTabela = TabMedVend.getTableHeader();
+        tituloTabela.setFont(new Font("century gothic", Font.BOLD, 12));
+        
+        DefaultTableCellRenderer centralizar = (DefaultTableCellRenderer)
+                tituloTabela.getDefaultRenderer();
+        centralizar.setHorizontalAlignment(JLabel.CENTER);
+        centralizar.setVerticalTextPosition(JLabel.CENTER);
+        
+        TabMedVend.getColumnModel().getColumn(1).setMinWidth(160);
+    }
+    
     /**
      * @param args the command line arguments
      */

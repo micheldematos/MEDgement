@@ -10,11 +10,15 @@ import Model.NotaFiscalTableModel;
 import Objetos.NotaFiscal;
 import Objetos.Venda;
 import java.awt.Cursor;
+import java.awt.Font;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -36,6 +40,7 @@ public class JanelaNf extends javax.swing.JFrame {
         
         tabelaNotaFiscal.setModel(model);
         model.recarregaTabela();
+        formatar();
     }
     
     public JanelaNf(TelaInicial inicio) {
@@ -45,6 +50,7 @@ public class JanelaNf extends javax.swing.JFrame {
         
         tabelaNotaFiscal.setModel(model);
         model.recarregaTabela();
+        formatar();
     }
 
     /**
@@ -64,10 +70,12 @@ public class JanelaNf extends javax.swing.JFrame {
         botaoVoltar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         caixaNF.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         caixaNF.setText("NOTA FISCAL");
 
+        tabelaNotaFiscal.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         tabelaNotaFiscal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -210,6 +218,17 @@ public class JanelaNf extends javax.swing.JFrame {
         } catch (ParseException e) {
         }
         return dataFormatada;
+    }
+    
+    public void formatar(){
+        JTableHeader tituloTabela = tabelaNotaFiscal.getTableHeader();
+        tituloTabela.setFont(new Font("century gothic", Font.BOLD, 12));
+        
+        DefaultTableCellRenderer centralizar = (DefaultTableCellRenderer)
+                tituloTabela.getDefaultRenderer();
+        centralizar.setHorizontalAlignment(JLabel.CENTER);
+        centralizar.setVerticalAlignment(JLabel.CENTER);
+        
     }
     
     /**

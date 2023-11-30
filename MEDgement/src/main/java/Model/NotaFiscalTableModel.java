@@ -6,7 +6,10 @@ package Model;
 
 import DAO.NotaFiscalDAO;
 import Objetos.NotaFiscal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -41,7 +44,18 @@ public class NotaFiscalTableModel extends AbstractTableModel {
                 return dados.get(linha).getNumeronf();
             }
             case 1: {
-                return dados.get(linha).getDataemissaonf();
+                String dataDigitada = dados.get(linha).getDataemissaonf();
+                String dataFormatada = null;
+                
+                SimpleDateFormat formatoBanco = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat formatoDesejado = new SimpleDateFormat("dd/MM/yyyy");
+                
+                try {
+                    Date dataBanco = new Date (formatoBanco.parse(dataDigitada).getTime());
+                    dataFormatada = formatoDesejado.format(dataBanco);
+                } catch (ParseException e) {
+                }
+                return dataFormatada;
             }
             case 2: {
                 return dados.get(linha).getValornfvenda();

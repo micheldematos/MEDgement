@@ -10,10 +10,14 @@ import DAO.VendaDAO;
 import Objetos.MedComprados;
 import Objetos.MedVendidos;
 import Objetos.Medicamento;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
+import javax.xml.crypto.Data;
 
 /**
  *
@@ -55,7 +59,18 @@ public class MedNfTableModel  extends AbstractTableModel {
                 return dados.get(linha).getCodmedicamento();
             }
             case 2:{
-                return dados.get(linha).getDatavenda();
+                String dataDigitada = dados.get(linha).getDatavenda();
+                String dataFormatada = null;
+                
+                SimpleDateFormat formatoBanco = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat formatoDesejado = new SimpleDateFormat("dd/MM/yyyy");
+                
+                try {
+                    Date dataBanco = new Date (formatoBanco.parse(dataDigitada).getTime());
+                    dataFormatada = formatoDesejado.format(dataBanco);
+                } catch (ParseException e) {
+                }
+                return dataFormatada;
             }
             case 3:{
                 return dados.get(linha).getValorUnMed();
