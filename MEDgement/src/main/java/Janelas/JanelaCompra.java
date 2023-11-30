@@ -77,6 +77,9 @@ public final class JanelaCompra extends javax.swing.JFrame {
             if (fornList.get(i).getSituacaofornecedor() == 1) {
                 fornComboBox.addItem(String.valueOf((fornList.get(i).getCodfornecedor())) + " - " + 
                     fornList.get(i).getNomefornecedor());
+            } else if (fornList.get(i).getSituacaofornecedor() == 0){
+                fornComboBox.addItem(String.valueOf("INATIVADO ("+ (fornList.get(i).getCodfornecedor())) + " - " + 
+                    fornList.get(i).getNomefornecedor()+")");
             }
         }
         
