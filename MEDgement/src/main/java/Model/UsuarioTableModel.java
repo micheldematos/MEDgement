@@ -89,7 +89,7 @@ public class UsuarioTableModel extends AbstractTableModel {
                 break;
             }
             case 4:{
-                dados.get(linha).setTipousuario(Integer.parseInt((String) valor));
+                dados.get(linha).setTipousuario((int) valor);
                 break;
             }
             case 5:{

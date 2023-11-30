@@ -8,13 +8,17 @@ import DAO.UsuarioDAO;
 import Model.UsuarioTableModel;
 import Objetos.Usuario;
 import java.awt.Cursor;
+import java.awt.Font;
 import java.net.URL;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -38,6 +42,8 @@ public final class JanelaUsuario extends javax.swing.JFrame {
         organizarCaixasInserir();
         botaoInativar.setVisible(false);
         consultaItens.setVisible(false);
+        
+        formatar();
     }
     
     public JanelaUsuario(TelaInicial inicio) throws ParseException {
@@ -48,6 +54,8 @@ public final class JanelaUsuario extends javax.swing.JFrame {
         organizarCaixasInserir();
         botaoInativar.setVisible(false);
         consultaItens.setVisible(false);
+        
+        formatar();
         this.inicio = inicio;
     }
 
@@ -93,6 +101,7 @@ public final class JanelaUsuario extends javax.swing.JFrame {
         tipoComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -413,22 +422,19 @@ public final class JanelaUsuario extends javax.swing.JFrame {
         model.recarregaTabela();
     }//GEN-LAST:event_formWindowActivated
 
-    public int tipoUser(){
-        int tipoUser = 0;
-      
-        switch (tipoComboBox.getItemAt(tipoComboBox.getSelectedIndex())) {
-            case "Administrador" -> 
-                tipoUser = 1;
-            case "Comum" -> 
-                tipoUser = 0;
-        }
+    public void formatar(){
+        JTableHeader tituloTabela = tabelaUsuario.getTableHeader();
+        tituloTabela.setFont(new Font("century gothic", Font.BOLD, 12));
         
-        return tipoUser;
+        DefaultTableCellRenderer centralizar = (DefaultTableCellRenderer)
+                tituloTabela.getDefaultRenderer();
+        centralizar.setHorizontalAlignment(JLabel.CENTER);
+        centralizar.setVerticalAlignment(JLabel.CENTER);
     }
     
     private void botaoAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAlterarActionPerformed
         // TODO add your handling code here:
-        if (tabelaUsuario.getSelectedRow() != 1) {
+        if (tabelaUsuario.getSelectedRow() != -1) {
             model.setValueAt(caixaInsSenha.getText(), tabelaUsuario.getSelectedRow(), 1);
             model.setValueAt(caixaInsNome.getText(), tabelaUsuario.getSelectedRow(), 2);
             model.setValueAt(caixaInsCpf.getText(), tabelaUsuario.getSelectedRow(), 3);
@@ -444,6 +450,19 @@ public final class JanelaUsuario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botaoAlterarActionPerformed
 
+    public int tipoUser(){
+        int tipoUser = 0;
+      
+        switch (tipoComboBox.getItemAt(tipoComboBox.getSelectedIndex())) {
+            case "Administrador" -> 
+                tipoUser = 1;
+            case "Comum" -> 
+                tipoUser = 0;
+        }
+        
+        return tipoUser;
+    }
+    
     private void tabelaUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaUsuarioMouseClicked
         // TODO add your handling code here:
         if (tabelaUsuario.getSelectedRow() != -1) {
@@ -454,7 +473,7 @@ public final class JanelaUsuario extends javax.swing.JFrame {
             caixaInsNome.setText(u.getNomecompleto());
             caixaInsCpf.setText(u.getCpf());
             
-            //tipoComboBox.setSelectedIndex(u.getTipousuario());
+            tipoComboBox.setSelectedIndex(u.getTipousuario());
             caixaInsCargo.setText(u.getCargo());
             
             URL ativar = getClass().getResource("/Logo/Ativar.png");
@@ -469,14 +488,6 @@ public final class JanelaUsuario extends javax.swing.JFrame {
                 botaoInativar.setIcon(desactivate);
                 botaoInativar.setText("Inativar");
             }
-
-//            switch (u.getSituacaousuario()) {
-//                case 0 -> botaoInativar.setText("Ativar");
-//                case 1 -> botaoInativar.setText("Inativar");
-//                default -> {
-//                    botaoInativar.setText("Ativar / Inativar");
-//                }
-//        }
             
         consultaUsuario(u.getCodusuario(), u.getSenhausuario(), 
                 u.getTipousuario(), u.getCargo());

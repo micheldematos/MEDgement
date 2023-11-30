@@ -11,16 +11,20 @@ import javax.swing.JOptionPane;
 import Model.MedicamentoTableModel;
 import Objetos.Fornecedor;
 import java.awt.Cursor;
+import java.awt.Font;
 import java.net.URL;
 import java.util.List;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
 
 /**
  *
  * @author michel.matos
  */
-public class JanelaMedicamento extends javax.swing.JFrame {
+public final class JanelaMedicamento extends javax.swing.JFrame {
     
     TelaInicial inicio;
     
@@ -36,6 +40,7 @@ public class JanelaMedicamento extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         
+        // incluir fornecedores inativos
         for (int i = 0; i < fornList.size(); i++) {
             fornComboBox.addItem(String.valueOf((fornList.get(i).getCodfornecedor())) + " - " + 
                     fornList.get(i).getNomefornecedor());
@@ -43,12 +48,15 @@ public class JanelaMedicamento extends javax.swing.JFrame {
         
         tabelaMedicamento.setModel(model);
         consultaItens.setVisible(false);
+        
+        formatar();
     }
     
     public JanelaMedicamento(TelaInicial inicio) {
         initComponents();
         this.setLocationRelativeTo(null);
         
+        // incluir fornecedores inativos
         for (int i = 0; i < fornList.size(); i++) {
             fornComboBox.addItem(String.valueOf((fornList.get(i).getCodfornecedor())) + " - " + 
                     fornList.get(i).getNomefornecedor());
@@ -56,6 +64,8 @@ public class JanelaMedicamento extends javax.swing.JFrame {
         
         tabelaMedicamento.setModel(model);
         consultaItens.setVisible(false);
+        
+        formatar();
         this.inicio = inicio;
     }
     
@@ -121,6 +131,7 @@ public class JanelaMedicamento extends javax.swing.JFrame {
         caixaNomeMedicamento.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         caixaNomeMedicamento.setText("Nome");
 
+        tabelaMedicamento.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         tabelaMedicamento.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -175,6 +186,12 @@ public class JanelaMedicamento extends javax.swing.JFrame {
             }
         });
 
+        caixaInsNomMed.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+
+        caixaInsDescMed.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+
+        caixaInsValorVendMed.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+
         botaoLimpar1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         botaoLimpar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Logo/Limpar.png"))); // NOI18N
         botaoLimpar1.setMaximumSize(new java.awt.Dimension(35, 35));
@@ -189,6 +206,7 @@ public class JanelaMedicamento extends javax.swing.JFrame {
         caixaPesquisar.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         caixaPesquisar.setText("Pesquisar");
 
+        caixaInsPesquisar.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         caixaInsPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 caixaInsPesquisarKeyReleased(evt);
@@ -197,6 +215,8 @@ public class JanelaMedicamento extends javax.swing.JFrame {
 
         caixaForn.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         caixaForn.setText("Fornecedor");
+
+        fornComboBox.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
 
         consultaItens.setBackground(new java.awt.Color(255, 255, 255));
         consultaItens.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 46, 138), 4, true));
@@ -208,42 +228,49 @@ public class JanelaMedicamento extends javax.swing.JFrame {
         consultaMedicamento.setText("CONSULTA MEDICAMENTO");
 
         caixaConsultaDesc.setBackground(new java.awt.Color(0, 0, 0));
-        caixaConsultaDesc.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        caixaConsultaDesc.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         caixaConsultaDesc.setText("Descrição");
 
         consultaDesc.setBackground(new java.awt.Color(0, 0, 0));
+        consultaDesc.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         consultaDesc.setText("Descrição");
 
-        caixaConsultaDataUltComp.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        caixaConsultaDataUltComp.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         caixaConsultaDataUltComp.setText("Data ultima compra");
 
+        consultaDataUltComp.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         consultaDataUltComp.setText("Data ultima compra");
 
-        caixaConsultaValorUltComp.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        caixaConsultaValorUltComp.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         caixaConsultaValorUltComp.setText("Valor ultima compra");
 
+        consultaValorUltComp.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         consultaValorUltComp.setText("Valor");
 
-        caixaConsultaQuantidade.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        caixaConsultaQuantidade.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         caixaConsultaQuantidade.setText("Quantidade");
 
+        consultaQuantidade.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         consultaQuantidade.setText("Quantidade");
 
-        caixaConsultaCodForn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        caixaConsultaCodForn.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         caixaConsultaCodForn.setText("Código fornecedor");
 
+        consultaCodForn.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         consultaCodForn.setText("Código fornecedor");
 
-        caixaConsultaNomeForn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        caixaConsultaNomeForn.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         caixaConsultaNomeForn.setText("Nome fornecedor");
 
+        consultaNomeForn.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         consultaNomeForn.setText("Nome fornecedor");
 
         caixaConsultaCod.setBackground(new java.awt.Color(0, 0, 0));
-        caixaConsultaCod.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        caixaConsultaCod.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         caixaConsultaCod.setText("Código");
 
         consultaCod.setBackground(new java.awt.Color(0, 0, 0));
+        consultaCod.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         consultaCod.setText("Código");
 
         javax.swing.GroupLayout consultaItensLayout = new javax.swing.GroupLayout(consultaItens);
@@ -412,7 +439,7 @@ public class JanelaMedicamento extends javax.swing.JFrame {
                     .addComponent(caixaPesquisar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(63, 63, 63))
+                .addGap(54, 54, 54))
         );
 
         pack();
@@ -447,7 +474,7 @@ public class JanelaMedicamento extends javax.swing.JFrame {
 
     private void botaoAlterarMedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAlterarMedActionPerformed
         // TODO add your handling code here:
-        if (tabelaMedicamento.getSelectedRow() != 1) {
+        if (tabelaMedicamento.getSelectedRow() != -1) {
             model.setValueAt(caixaInsNomMed.getText(), tabelaMedicamento.getSelectedRow(), 1);
             model.setValueAt(caixaInsDescMed.getText(), tabelaMedicamento.getSelectedRow(), 2);
             model.setValueAt(String.valueOf(caixaInsValorVendMed.getText()), tabelaMedicamento.getSelectedRow(), 5);
@@ -465,6 +492,8 @@ public class JanelaMedicamento extends javax.swing.JFrame {
     private void tabelaMedicamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMedicamentoMouseClicked
         // TODO add your handling code here:
         Medicamento med = model.pegaDadosLinha(tabelaMedicamento.getSelectedRow());
+        
+        botaoInativarMed.setVisible(true);
         
         caixaInsNomMed.setText(med.getNomemedicamento());
         caixaInsDescMed.setText(med.getDescricaomedicamento());
@@ -608,6 +637,18 @@ public class JanelaMedicamento extends javax.swing.JFrame {
                 new JanelaMedicamento().setVisible(true);
             }
         });
+    }
+    
+    public void formatar(){
+        JTableHeader tabelaTitulo = tabelaMedicamento.getTableHeader();
+        tabelaTitulo.setFont(new Font("century gothic", Font.BOLD, 12));
+        
+        DefaultTableCellRenderer centralizar = (DefaultTableCellRenderer)
+                tabelaTitulo.getDefaultRenderer();
+        centralizar.setHorizontalAlignment(JLabel.CENTER);
+        centralizar.setVerticalAlignment(JLabel.CENTER);
+        
+        botaoInativarMed.setVisible(false);
     }
     
     public void limpacampos(){
