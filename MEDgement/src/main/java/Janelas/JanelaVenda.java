@@ -22,6 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 
@@ -503,10 +504,14 @@ public final class JanelaVenda extends javax.swing.JFrame {
     private void botaoAlterarVendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAlterarVendActionPerformed
         // TODO add your handling code here:
         if (tabelaVenda.getSelectedRow() != -1 && drogList.get(DrogComboBox.getSelectedIndex()).getSituacaodrogaria() != 0) {
-            Venda v = model.pegaDadosLinha(tabelaVenda.getSelectedRow());
-            VendaDAO vendDao = new VendaDAO();
             
-            if (v.getEmissaoNf() == 0) {
+            int alterar = JOptionPane.showConfirmDialog(null, "Alterar dados da venda?", "ALTERAÇÃO", JOptionPane.YES_NO_OPTION);
+                        
+            if (alterar == 0) {
+                Venda v = model.pegaDadosLinha(tabelaVenda.getSelectedRow());
+                VendaDAO vendDao = new VendaDAO();
+                
+                if (v.getEmissaoNf() == 0) {
                 model.setValueAt(converterData(caixaInsDataVend.getText()), tabelaVenda.getSelectedRow(), 1);
                 model.setValueAt(String.valueOf(pagComboBox.getSelectedItem()), tabelaVenda.getSelectedRow(), 2);
                 model.setValueAt(String.valueOf(drogList.get(DrogComboBox.getSelectedIndex()).getCoddrogaria()), tabelaVenda.getSelectedRow(), 4);
@@ -524,12 +529,13 @@ public final class JanelaVenda extends javax.swing.JFrame {
 //                dao.atualizar(v);
 //                limpacampos();
 //            
-            } else{
-                JOptionPane.showMessageDialog(null, "Não é possível alterar o pedido!", "PEDIDO COM NOTA FISCAL", NORMAL);
-                tabelaVenda.clearSelection();
-                clique = -1;
-                ocultar();
-            } 
+                } else{
+                    JOptionPane.showMessageDialog(null, "Não é possível alterar o pedido!", "PEDIDO COM NOTA FISCAL", NORMAL);
+                    tabelaVenda.clearSelection();
+                    clique = -1;
+                    ocultar();
+                } 
+            }
         } else if (drogList.get(DrogComboBox.getSelectedIndex()).getSituacaodrogaria() == 0){
             JOptionPane.showMessageDialog(null, "Ative o cadastro da drogaria em sua tela de cadastro",
                     "DROGARIA DESATIVADA!", NORMAL);
@@ -602,27 +608,37 @@ public final class JanelaVenda extends javax.swing.JFrame {
     private void botaorRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaorRemoverActionPerformed
         // TODO add your handling code here:
         if (tabelaVenda.getSelectedRow() != -1) {
-            Venda v = model.pegaDadosLinha(tabelaVenda.getSelectedRow());
-            VendaDAO dao = new VendaDAO();
             
-            if (v.getEmissaoNf() == 0) {
-                dao.deletar(v);
-                model.recarregaTabela();
-                tabelaVenda.clearSelection();
-                clique = -1;
-                ocultar();
-            } else{
-                JOptionPane.showMessageDialog(null, "Não é possível apagar o pedido!", "EMITIDO NOTA FISCAL",0);
-                tabelaVenda.clearSelection();
-                clique = -1;
-                ocultar();
+            int deletar = JOptionPane.showConfirmDialog(null, "Remover pedido de venda?", "REMOVER", JOptionPane.YES_NO_OPTION);
+            
+            if (deletar == 0) {
+                Venda v = model.pegaDadosLinha(tabelaVenda.getSelectedRow());
+                VendaDAO dao = new VendaDAO();
+
+                if (v.getEmissaoNf() == 0) {
+                    dao.deletar(v);
+                    model.recarregaTabela();
+                    tabelaVenda.clearSelection();
+                    clique = -1;
+                    ocultar();
+                } else{
+                    JOptionPane.showMessageDialog(null, "Não é possível apagar o pedido!", "EMITIDO NOTA FISCAL",0);
+                    tabelaVenda.clearSelection();
+                    clique = -1;
+                    ocultar();
+                }
             }
         }
     }//GEN-LAST:event_botaorRemoverActionPerformed
 
     private void botaoLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoLimparActionPerformed
         // TODO add your handling code here:
-        limpacampos();
+        int limpar = JOptionPane.showConfirmDialog(null, "Limpar campos?", "LIMPAR", JOptionPane.YES_NO_OPTION);
+        
+        if (limpar == 0) {
+            limpacampos();
+        }
+        
     }//GEN-LAST:event_botaoLimparActionPerformed
 
     private void caixaInsPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_caixaInsPesquisarKeyReleased
@@ -661,23 +677,29 @@ public final class JanelaVenda extends javax.swing.JFrame {
        
         if (tabelaVenda.getSelectedRow() != -1 && (model.getValueAt(tabelaVenda.getSelectedRow(), 5)).equals("Sem emissão" ) &&
                 drogList.get(DrogComboBox.getSelectedIndex()).getSituacaodrogaria() != 0){
-            NotaFiscal nf = new NotaFiscal();
-            NotaFiscalDAO nfdao = new NotaFiscalDAO();
             
-            try {
-            nf.setDataemissaonf(converterData(caixaInsDataVend.getText())); 
-            nf.setValornfvenda(Double.parseDouble(String.valueOf(model.getValueAt(tabelaVenda.getSelectedRow(), 3)))); 
-            nf.setCodpedido(Integer.parseInt(String.valueOf(model.getValueAt(tabelaVenda.getSelectedRow(), 0))));
+            int emitirNF = JOptionPane.showConfirmDialog(null, "Emitir nota fiscal?", "EMITIR NF", JOptionPane.YES_NO_OPTION);
             
-            nfdao.criar(nf);
-            model.recarregaTabela();
-            tabelaVenda.clearSelection();
-            clique = -1;
-            ocultar();
-            
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, e,"ERRO NÃO ESPERADO", 0);
+            if (emitirNF == 0) {
+                NotaFiscal nf = new NotaFiscal();
+                NotaFiscalDAO nfdao = new NotaFiscalDAO();
+
+                try {
+                nf.setDataemissaonf(converterData(caixaInsDataVend.getText())); 
+                nf.setValornfvenda(Double.parseDouble(String.valueOf(model.getValueAt(tabelaVenda.getSelectedRow(), 3)))); 
+                nf.setCodpedido(Integer.parseInt(String.valueOf(model.getValueAt(tabelaVenda.getSelectedRow(), 0))));
+
+                nfdao.criar(nf);
+                model.recarregaTabela();
+                tabelaVenda.clearSelection();
+                clique = -1;
+                ocultar();
+
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, e,"ERRO NÃO ESPERADO", 0);
+                }
             }
+            
         } else if (drogList.get(DrogComboBox.getSelectedIndex()).getSituacaodrogaria() == 0){
             JOptionPane.showMessageDialog(null, "Ative o cadastro da drogaria em sua tela de cadastro",
                     "DROGARIA DESATIVADA!", NORMAL);
@@ -690,17 +712,20 @@ public final class JanelaVenda extends javax.swing.JFrame {
     private void botaoCancelarNfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarNfActionPerformed
         // TODO add your handling code here:
         if (tabelaVenda.getSelectedRow() != -1 && !(model.getValueAt(tabelaVenda.getSelectedRow(), 5)).equals("Sem emissão")) {
-            NotaFiscalDAO nfdao = new NotaFiscalDAO();
-            Venda nf = model.pegaDadosLinha(tabelaVenda.getSelectedRow());
+            int cancelarNf = JOptionPane.showConfirmDialog(null, "Cancelar nota fiscal?", "CANCELAR NF", JOptionPane.YES_NO_OPTION);
             
-            nfdao.cancelar(nf);
-            
-            model.recarregaTabela();
-            tabelaVenda.clearSelection();
-            clique = -1;
-            ocultar();
+            if (cancelarNf == 0) {
+                NotaFiscalDAO nfdao = new NotaFiscalDAO();
+                Venda nf = model.pegaDadosLinha(tabelaVenda.getSelectedRow());
+
+                nfdao.cancelar(nf);
+
+                model.recarregaTabela();
+                tabelaVenda.clearSelection();
+                clique = -1;
+                ocultar();
+            }
         }
-        
     }//GEN-LAST:event_botaoCancelarNfActionPerformed
 
     private void botaoVoltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoVoltarMouseClicked
@@ -752,6 +777,10 @@ public final class JanelaVenda extends javax.swing.JFrame {
         tabelaVenda.getColumnModel().getColumn(0).setMaxWidth(80);
         tabelaVenda.getColumnModel().getColumn(2).setMinWidth(160);
         tabelaVenda.getColumnModel().getColumn(2).setMaxWidth(160);
+        
+        UIManager.put("OptionPane.cancelButtonText", "Cancelar"); 
+        UIManager.put("OptionPane.noButtonText", "Não"); 
+        UIManager.put("OptionPane.yesButtonText", "Sim");
     }
     
     public void ocultar(){
