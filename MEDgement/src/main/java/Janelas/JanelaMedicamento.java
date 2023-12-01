@@ -586,7 +586,6 @@ public final class JanelaMedicamento extends javax.swing.JFrame {
             } else {
                 consultaValorUltComp.setText(String.valueOf(valorUltComp));
             }
-            
     }
     
     private void botaoInativarMedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoInativarMedActionPerformed

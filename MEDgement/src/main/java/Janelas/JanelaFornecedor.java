@@ -155,6 +155,22 @@ public final class JanelaFornecedor extends javax.swing.JFrame {
         caixaCEPFornecedor.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         caixaCEPFornecedor.setText("CEP:");
 
+        caixaInsNomeForn.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+
+        caixaInsRuaForn.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        caixaInsRuaForn.setActionCommand("<Not Set>");
+
+        caixaInsNumForn.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+
+        caixaInsCompForn.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+
+        caixaInsBairroForn.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+
+        caixaInsCidForn.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+
+        caixaInsEstForn.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+
+        tabelaFornecedores.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         tabelaFornecedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -217,17 +233,23 @@ public final class JanelaFornecedor extends javax.swing.JFrame {
         caixaPesquisar.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         caixaPesquisar.setText("Pesquisar");
 
+        caixaInsPesquisar.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         caixaInsPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 caixaInsPesquisarKeyReleased(evt);
             }
         });
 
+        caixaInsCEPForn.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         caixaInsCEPForn.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 caixaInsCEPFornKeyReleased(evt);
             }
         });
+
+        caixaInsCNPJForn.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+
+        caixaInsIEForn.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
 
         consultaItens.setBackground(new java.awt.Color(255, 255, 255));
         consultaItens.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 46, 138), 4, true));
@@ -239,47 +261,55 @@ public final class JanelaFornecedor extends javax.swing.JFrame {
         consultaFornecedor.setText("CONSULTA FORNECEDOR");
 
         caixaConsultaCod.setBackground(new java.awt.Color(0, 0, 0));
-        caixaConsultaCod.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        caixaConsultaCod.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         caixaConsultaCod.setText("Código fornecedor");
 
         consultaRua.setBackground(new java.awt.Color(0, 0, 0));
+        consultaRua.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         consultaRua.setText("Rua");
 
-        caixaConsultaNum.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        caixaConsultaNum.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         caixaConsultaNum.setText("Número");
 
+        consultaNum.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         consultaNum.setText("Número");
 
-        caixaConsultaBairro.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        caixaConsultaBairro.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         caixaConsultaBairro.setText("Bairro");
 
+        consultaBairro.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         consultaBairro.setText("Bairro");
 
-        caixaConsultaCidade.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        caixaConsultaCidade.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         caixaConsultaCidade.setText("Cidade");
 
+        consultaCidade.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         consultaCidade.setText("Cidade");
 
+        consultaEstado.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         consultaEstado.setText("Estado");
 
-        caixaConsultaEstado.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        caixaConsultaEstado.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         caixaConsultaEstado.setText("Estado");
 
-        caixaConsultaCEP.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        caixaConsultaCEP.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         caixaConsultaCEP.setText("CEP");
 
+        consultaCEP.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         consultaCEP.setText("CEP");
 
         caixaConsultaRua.setBackground(new java.awt.Color(0, 0, 0));
-        caixaConsultaRua.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        caixaConsultaRua.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         caixaConsultaRua.setText("Rua");
 
         consultaCod.setBackground(new java.awt.Color(0, 0, 0));
+        consultaCod.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         consultaCod.setText("Código");
 
-        caixaConsultaComplemento.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        caixaConsultaComplemento.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         caixaConsultaComplemento.setText("Complemento");
 
+        consultaComplemento.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         consultaComplemento.setText("Complemento");
 
         javax.swing.GroupLayout consultaItensLayout = new javax.swing.GroupLayout(consultaItens);
@@ -524,7 +554,6 @@ public final class JanelaFornecedor extends javax.swing.JFrame {
             dao.criar(f);
             model.recarregaTabela();
             limpaCampos();
-            
             
         } catch (Exception e) {
             System.out.println("Erro: " + e);
