@@ -13,6 +13,9 @@ import Objetos.Fornecedor;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -32,6 +35,8 @@ public final class JanelaMedicamento extends javax.swing.JFrame {
     
     FornecedorDAO fornDao = new FornecedorDAO();
     List<Fornecedor> fornList = fornDao.read();
+    
+    int clique = -1;
 
     /**
      * Creates new form JanelaMedicamento
@@ -42,8 +47,13 @@ public final class JanelaMedicamento extends javax.swing.JFrame {
         
         // incluir fornecedores inativos
         for (int i = 0; i < fornList.size(); i++) {
-            fornComboBox.addItem(String.valueOf((fornList.get(i).getCodfornecedor())) + " - " + 
+            if (fornList.get(i).getSituacaofornecedor() == 1) {
+                fornComboBox.addItem(String.valueOf((fornList.get(i).getCodfornecedor())) + " - " + 
                     fornList.get(i).getNomefornecedor());
+            } else if (fornList.get(i).getSituacaofornecedor() == 0){
+                fornComboBox.addItem(String.valueOf("INATIVADO (" + (fornList.get(i).getCodfornecedor())) + " - " + 
+                    fornList.get(i).getNomefornecedor() + ")");
+            }   
         }
         
         tabelaMedicamento.setModel(model);
@@ -58,8 +68,13 @@ public final class JanelaMedicamento extends javax.swing.JFrame {
         
         // incluir fornecedores inativos
         for (int i = 0; i < fornList.size(); i++) {
-            fornComboBox.addItem(String.valueOf((fornList.get(i).getCodfornecedor())) + " - " + 
+            if (fornList.get(i).getSituacaofornecedor() == 1) {
+                fornComboBox.addItem(String.valueOf((fornList.get(i).getCodfornecedor())) + " - " + 
                     fornList.get(i).getNomefornecedor());
+            } else if (fornList.get(i).getSituacaofornecedor() == 0){
+                fornComboBox.addItem(String.valueOf("INATIVADO (" + (fornList.get(i).getCodfornecedor())) + " - " + 
+                    fornList.get(i).getNomefornecedor() + ")");
+            }   
         }
         
         tabelaMedicamento.setModel(model);
@@ -118,6 +133,7 @@ public final class JanelaMedicamento extends javax.swing.JFrame {
         jRadioButton1.setText("jRadioButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         setSize(new java.awt.Dimension(900, 550));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -491,44 +507,46 @@ public final class JanelaMedicamento extends javax.swing.JFrame {
 
     private void tabelaMedicamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMedicamentoMouseClicked
         // TODO add your handling code here:
-        Medicamento med = model.pegaDadosLinha(tabelaMedicamento.getSelectedRow());
-        
-        botaoInativarMed.setVisible(true);
-        
-        caixaInsNomMed.setText(med.getNomemedicamento());
-        caixaInsDescMed.setText(med.getDescricaomedicamento());
-        caixaInsValorVendMed.setText("" + med.getValorvenda());
-        
-        for (int i = 0; i < fornList.size(); i++) {
-            if (fornList.get(i).getCodfornecedor() == med.getCodfornecedor()) {
-                fornComboBox.setSelectedIndex(i);
+        if (tabelaMedicamento.getSelectedRow() != -1 && tabelaMedicamento.getSelectedRow() != clique) {
+            clique = tabelaMedicamento.getSelectedRow();
+            Medicamento med = model.pegaDadosLinha(tabelaMedicamento.getSelectedRow());
+
+            botaoInativarMed.setVisible(true);
+            
+            //System.out.println(med.getCodfornecedor() + "   " + fornList.get(fornComboBox.getSelectedIndex()).getCodfornecedor());
+
+            caixaInsNomMed.setText(med.getNomemedicamento());
+            caixaInsDescMed.setText(med.getDescricaomedicamento());
+            caixaInsValorVendMed.setText("" + med.getValorvenda());
+
+            for (int i = 0; i < fornList.size(); i++) {
+                if ((fornList.get(i).getCodfornecedor()) == med.getCodfornecedor()) {
+                    fornComboBox.setSelectedIndex(i);
+                }
             }
-        }
-        
-        URL ativar = getClass().getResource("/Logo/Ativar.png");
-        Icon activate = new ImageIcon(ativar);
-        URL desativar = getClass().getResource("/Logo/Inativar.png");
-        Icon desactivate = new ImageIcon(desativar);
-        
-        if (med.getSituacaomed() == 0) {
-            botaoInativarMed.setIcon(activate);
-            botaoInativarMed.setText("Ativar");
+
+            URL ativar = getClass().getResource("/Logo/Ativar.png");
+            Icon activate = new ImageIcon(ativar);
+            URL desativar = getClass().getResource("/Logo/Inativar.png");
+            Icon desactivate = new ImageIcon(desativar);
+
+            if (med.getSituacaomed() == 0) {
+                botaoInativarMed.setIcon(activate);
+                botaoInativarMed.setText("Ativar");
+            } else {
+                botaoInativarMed.setIcon(desactivate);
+                botaoInativarMed.setText("Inativar");
+            }
+
+            consultaMedicamento(med.getCodmedicamento(), med.getDescricaomedicamento(), 
+                    med.getDataultimacompra(), med.getValorcusto(), 
+                    med.getQuantidadeestoque(), med.getCodfornecedor());
         } else {
-            botaoInativarMed.setIcon(desactivate);
-            botaoInativarMed.setText("Inativar");
+            clique = -1;
+            tabelaMedicamento.clearSelection();
+            botaoInativarMed.setVisible(false);
+            consultaItens.setVisible(false);
         }
-//        
-//        switch (med.getSituacaomed()) {
-//            case 0 -> botaoInativarMed.setText("Ativar");
-//            case 1 -> botaoInativarMed.setText("Inativar");
-//            default -> {
-//                botaoInativarMed.setText("Ativar / Inativar");
-//            }
-//        }
-        
-        consultaMedicamento(med.getCodmedicamento(), med.getDescricaomedicamento(), 
-                med.getDataultimacompra(), med.getValorcusto(), 
-                med.getQuantidadeestoque(), med.getCodfornecedor());
     }//GEN-LAST:event_tabelaMedicamentoMouseClicked
 
     public void consultaMedicamento(int cod ,String desc, String dataUltComp, double valorUltComp, int qntd, 
@@ -541,13 +559,26 @@ public final class JanelaMedicamento extends javax.swing.JFrame {
             consultaDesc.setText(desc);
             consultaQuantidade.setText(String.valueOf(qntd));
             consultaCodForn.setText(String.valueOf(codForn));
-            consultaNomeForn.setText(fornDao.pesquisarCod(String.valueOf(cod)).get(0).getNomefornecedor());
+            consultaNomeForn.setText(fornDao.pesquisarCod(String.valueOf(codForn)).get(0).getNomefornecedor());
             consultaCod.setText(String.valueOf(cod));
             
             if (dataUltComp == null) {
                 consultaDataUltComp.setText("Sem compra");
             } else {
-                consultaDataUltComp.setText(dataUltComp);
+                               
+                String dataFormatada = null;
+                String dataDigitada = dataUltComp;
+        
+                SimpleDateFormat formatoBanco = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat formatoDesejado = new SimpleDateFormat("dd/MM/yyyy");
+
+                try {
+                    Date dataBanco = new Date(formatoBanco.parse(dataDigitada).getTime());
+                    dataFormatada = formatoDesejado.format(dataBanco);
+                } catch (ParseException e) {
+                }
+                
+                consultaDataUltComp.setText(dataFormatada);
             }
             
             if (valorUltComp == 0.0) {
@@ -567,10 +598,20 @@ public final class JanelaMedicamento extends javax.swing.JFrame {
             dao.inativar(med);
             limpacampos();
             
+            clique = -1;
+            tabelaMedicamento.clearSelection();
+            botaoInativarMed.setVisible(false);
+            consultaItens.setVisible(false);
+            
         } else {
             MedicamentoDAO dao = new MedicamentoDAO();
             dao.ativar(med);
             limpacampos();
+            
+            clique = -1;
+            tabelaMedicamento.clearSelection();
+            botaoInativarMed.setVisible(false);
+            consultaItens.setVisible(false);
         }
     }//GEN-LAST:event_botaoInativarMedActionPerformed
 

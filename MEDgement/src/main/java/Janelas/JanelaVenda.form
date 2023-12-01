@@ -74,7 +74,7 @@
                           </Group>
                       </Group>
                       <EmptySpace type="separate" max="32767" attributes="0"/>
-                      <Component id="consultaItens" max="32767" attributes="0"/>
+                      <Component id="consultaItens" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
