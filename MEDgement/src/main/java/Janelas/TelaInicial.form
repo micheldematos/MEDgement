@@ -51,10 +51,7 @@
               <EmptySpace pref="135" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jPanel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="caixaLogin" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="521" pref="521" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="caixaLogin" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="120" max="-2" attributes="0"/>
               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
@@ -92,18 +89,13 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="genCom" max="32767" attributes="0"/>
-                                  <Component id="genMed" alignment="1" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
-                                  <Component id="imgComp" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
+                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="genCom" max="32767" attributes="0"/>
+                          <Component id="genMed" alignment="1" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                          <Component id="imgComp" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
@@ -133,7 +125,7 @@
                           <Component id="genDrog" pref="118" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="102" attributes="0">
                                   <Component id="imgDrog" min="-2" max="-2" attributes="0"/>
@@ -280,6 +272,11 @@
               <Image iconType="3" name="/Logo/Compra.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imgCompMouseClicked"/>
+            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imgCompMouseEntered"/>
+            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imgCompMouseExited"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="imgVend">
           <Properties>
@@ -287,6 +284,11 @@
               <Image iconType="3" name="/Logo/Venda.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imgVendMouseClicked"/>
+            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imgVendMouseEntered"/>
+            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imgVendMouseExited"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="imgDrog">
           <Properties>
@@ -294,6 +296,11 @@
               <Image iconType="3" name="/Logo/Drogaria.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imgDrogMouseClicked"/>
+            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imgDrogMouseEntered"/>
+            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imgDrogMouseExited"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="imgUser">
           <Properties>
@@ -301,6 +308,11 @@
               <Image iconType="3" name="/Logo/Usuarios.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imgUserMouseClicked"/>
+            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imgUserMouseEntered"/>
+            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imgUserMouseExited"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="imgForn">
           <Properties>
@@ -308,6 +320,11 @@
               <Image iconType="3" name="/Logo/Fornecedor.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imgFornMouseClicked"/>
+            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imgFornMouseEntered"/>
+            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imgFornMouseExited"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="genForn">
           <Properties>
@@ -326,6 +343,11 @@
               <Image iconType="3" name="/Logo/Medicamento.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imgMedMouseClicked"/>
+            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imgMedMouseEntered"/>
+            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imgMedMouseExited"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="genMed">
           <Properties>
@@ -355,6 +377,11 @@
               <Image iconType="3" name="/Logo/NotaFiscal.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imgNfMouseClicked"/>
+            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imgNfMouseEntered"/>
+            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imgNfMouseExited"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="botaoSair">
           <Properties>
@@ -373,6 +400,11 @@
               <Image iconType="3" name="/Logo/Logout.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imgLogoutMouseClicked"/>
+            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imgLogoutMouseEntered"/>
+            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imgLogoutMouseExited"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

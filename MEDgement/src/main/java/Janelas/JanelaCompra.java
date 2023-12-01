@@ -638,7 +638,6 @@ public final class JanelaCompra extends javax.swing.JFrame {
     private void botaoVoltarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoVoltarMouseEntered
         // TODO add your handling code here:
         this.setCursor(Cursor.HAND_CURSOR);
-        botaoVoltar.setToolTipText("Voltar");
     }//GEN-LAST:event_botaoVoltarMouseEntered
 
     private void botaoVoltarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoVoltarMouseExited

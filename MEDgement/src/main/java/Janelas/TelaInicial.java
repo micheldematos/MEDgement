@@ -124,14 +124,69 @@ public class TelaInicial extends javax.swing.JFrame {
         });
 
         imgComp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Logo/Compra.png"))); // NOI18N
+        imgComp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imgCompMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                imgCompMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                imgCompMouseExited(evt);
+            }
+        });
 
         imgVend.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Logo/Venda.png"))); // NOI18N
+        imgVend.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imgVendMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                imgVendMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                imgVendMouseExited(evt);
+            }
+        });
 
         imgDrog.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Logo/Drogaria.png"))); // NOI18N
+        imgDrog.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imgDrogMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                imgDrogMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                imgDrogMouseExited(evt);
+            }
+        });
 
         imgUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Logo/Usuarios.png"))); // NOI18N
+        imgUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imgUserMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                imgUserMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                imgUserMouseExited(evt);
+            }
+        });
 
         imgForn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Logo/Fornecedor.png"))); // NOI18N
+        imgForn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imgFornMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                imgFornMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                imgFornMouseExited(evt);
+            }
+        });
 
         genForn.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         genForn.setText("FORNECEDOR");
@@ -142,6 +197,17 @@ public class TelaInicial extends javax.swing.JFrame {
         });
 
         imgMed.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Logo/Medicamento.png"))); // NOI18N
+        imgMed.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imgMedMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                imgMedMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                imgMedMouseExited(evt);
+            }
+        });
 
         genMed.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         genMed.setText("MEDICAMENTO");
@@ -160,6 +226,17 @@ public class TelaInicial extends javax.swing.JFrame {
         });
 
         imgNf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Logo/NotaFiscal.png"))); // NOI18N
+        imgNf.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imgNfMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                imgNfMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                imgNfMouseExited(evt);
+            }
+        });
 
         botaoSair.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         botaoSair.setText("SAIR");
@@ -170,6 +247,17 @@ public class TelaInicial extends javax.swing.JFrame {
         });
 
         imgLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Logo/Logout.png"))); // NOI18N
+        imgLogout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imgLogoutMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                imgLogoutMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                imgLogoutMouseExited(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -177,15 +265,12 @@ public class TelaInicial extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(genCom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(genMed, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(genCom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(genMed, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(13, 13, 13)
-                                .addComponent(imgComp))))
+                        .addGap(13, 13, 13)
+                        .addComponent(imgComp))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addComponent(imgMed)))
@@ -206,7 +291,7 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addGap(49, 49, 49)
                         .addComponent(genDrog, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(imgDrog)
@@ -285,9 +370,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addContainerGap(135, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(caixaLogin)
-                        .addGap(521, 521, 521)))
+                    .addComponent(caixaLogin))
                 .addGap(120, 120, 120)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18))
@@ -395,6 +478,172 @@ public class TelaInicial extends javax.swing.JFrame {
             login.setVisible(true);
         }
     }//GEN-LAST:event_botaoSairActionPerformed
+
+    private void imgCompMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imgCompMouseEntered
+        // TODO add your handling code here:
+        this.setCursor(Cursor.HAND_CURSOR);
+    }//GEN-LAST:event_imgCompMouseEntered
+
+    private void imgCompMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imgCompMouseExited
+        // TODO add your handling code here:
+        this.setCursor(Cursor.DEFAULT_CURSOR);
+    }//GEN-LAST:event_imgCompMouseExited
+
+    private void imgCompMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imgCompMouseClicked
+        // TODO add your handling code here:
+        JanelaCompra compra = new JanelaCompra(this);
+        compra.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_imgCompMouseClicked
+
+    private void imgVendMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imgVendMouseEntered
+        // TODO add your handling code here:
+        this.setCursor(Cursor.HAND_CURSOR);
+    }//GEN-LAST:event_imgVendMouseEntered
+
+    private void imgVendMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imgVendMouseExited
+        // TODO add your handling code here:
+        this.setCursor(Cursor.DEFAULT_CURSOR);
+    }//GEN-LAST:event_imgVendMouseExited
+
+    private void imgVendMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imgVendMouseClicked
+        // TODO add your handling code here:
+        JanelaVenda ven;
+        try {
+            ven = new JanelaVenda(this);
+            ven.setVisible(true);
+        } catch (ParseException ex) {
+            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.setVisible(false);
+    }//GEN-LAST:event_imgVendMouseClicked
+
+    private void imgDrogMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imgDrogMouseExited
+        // TODO add your handling code here:
+        this.setCursor(Cursor.DEFAULT_CURSOR);
+    }//GEN-LAST:event_imgDrogMouseExited
+
+    private void imgDrogMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imgDrogMouseEntered
+        // TODO add your handling code here:
+        this.setCursor(Cursor.HAND_CURSOR);
+    }//GEN-LAST:event_imgDrogMouseEntered
+
+    private void imgDrogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imgDrogMouseClicked
+        // TODO add your handling code here:
+        JanelaDrogaria drogaria;
+        try {
+            drogaria = new JanelaDrogaria(this);
+            drogaria.setVisible(true);
+        } catch (ParseException ex) {
+            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        this.setVisible(false);
+    }//GEN-LAST:event_imgDrogMouseClicked
+
+    private void imgFornMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imgFornMouseEntered
+        // TODO add your handling code here:
+        this.setCursor(Cursor.HAND_CURSOR);
+    }//GEN-LAST:event_imgFornMouseEntered
+
+    private void imgFornMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imgFornMouseExited
+        // TODO add your handling code here:
+        this.setCursor(Cursor.DEFAULT_CURSOR);
+    }//GEN-LAST:event_imgFornMouseExited
+
+    private void imgFornMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imgFornMouseClicked
+        // TODO add your handling code here:
+        JanelaFornecedor fornecedor;
+        try {
+            fornecedor = new JanelaFornecedor(this);
+            fornecedor.setVisible(true);
+        } catch (ParseException ex) {
+            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.setVisible(false);
+    }//GEN-LAST:event_imgFornMouseClicked
+
+    private void imgMedMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imgMedMouseEntered
+        // TODO add your handling code here:
+        this.setCursor(Cursor.HAND_CURSOR);
+    }//GEN-LAST:event_imgMedMouseEntered
+
+    private void imgMedMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imgMedMouseExited
+        // TODO add your handling code here:
+        this.setCursor(Cursor.DEFAULT_CURSOR);
+    }//GEN-LAST:event_imgMedMouseExited
+
+    private void imgMedMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imgMedMouseClicked
+        // TODO add your handling code here:
+        JanelaMedicamento medicamento = new JanelaMedicamento(this);
+        medicamento.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_imgMedMouseClicked
+
+    private void imgNfMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imgNfMouseEntered
+        // TODO add your handling code here:
+        this.setCursor(Cursor.HAND_CURSOR);
+    }//GEN-LAST:event_imgNfMouseEntered
+
+    private void imgNfMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imgNfMouseExited
+        // TODO add your handling code here:
+        this.setCursor(Cursor.DEFAULT_CURSOR);
+    }//GEN-LAST:event_imgNfMouseExited
+
+    private void imgNfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imgNfMouseClicked
+        // TODO add your handling code here:
+        JanelaNf notafiscal = new JanelaNf(this);
+        notafiscal.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_imgNfMouseClicked
+
+    private void imgUserMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imgUserMouseEntered
+        // TODO add your handling code here:
+        this.setCursor(Cursor.HAND_CURSOR);
+    }//GEN-LAST:event_imgUserMouseEntered
+
+    private void imgUserMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imgUserMouseExited
+        // TODO add your handling code here:
+        this.setCursor(Cursor.DEFAULT_CURSOR);
+    }//GEN-LAST:event_imgUserMouseExited
+
+    private void imgUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imgUserMouseClicked
+        // TODO add your handling code here:
+        if (tipoUser == 1) {
+            JanelaUsuario user;
+            try {
+                user = new JanelaUsuario(this);
+                user.setVisible(true);
+                this.setVisible(false);
+            } catch (ParseException ex) {
+                Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Apenas usuário administrador");
+        }
+    }//GEN-LAST:event_imgUserMouseClicked
+
+    private void imgLogoutMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imgLogoutMouseEntered
+        // TODO add your handling code here:
+        this.setCursor(Cursor.HAND_CURSOR);
+    }//GEN-LAST:event_imgLogoutMouseEntered
+
+    private void imgLogoutMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imgLogoutMouseExited
+        // TODO add your handling code here:
+        this.setCursor(Cursor.DEFAULT_CURSOR);
+    }//GEN-LAST:event_imgLogoutMouseExited
+
+    private void imgLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imgLogoutMouseClicked
+        // TODO add your handling code here:
+        int voltar = JOptionPane.showConfirmDialog(null, "Você deseja deslogar?", "Alerta", JOptionPane.YES_NO_OPTION);
+        
+        if (voltar == 0) {
+            this.dispose();
+        
+            TelaLogin login = new TelaLogin();
+            login.setVisible(true);
+        }
+    }//GEN-LAST:event_imgLogoutMouseClicked
 
     /**
      * @param args the command line arguments
