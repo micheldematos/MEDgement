@@ -17,6 +17,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 
@@ -169,12 +171,13 @@ public class JanelaNf extends javax.swing.JFrame {
     private void botaoAlterarMedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAlterarMedActionPerformed
         // TODO add your handling code here:
         if (tabelaNotaFiscal.getSelectedRow() != -1) {
-            NotaFiscalDAO nfdao = new NotaFiscalDAO();
-            NotaFiscal nf = model.pegaDadosLinha(tabelaNotaFiscal.getSelectedRow());
-            
-            nfdao.cancelarI(nf);
-            
-            model.recarregaTabela();
+            int cancelarNf = JOptionPane.showConfirmDialog(null, "Cancelar nota fiscal?","CANCELAR NF",JOptionPane.YES_NO_OPTION);
+            if (cancelarNf == 0) {
+                NotaFiscalDAO nfdao = new NotaFiscalDAO();
+                NotaFiscal nf = model.pegaDadosLinha(tabelaNotaFiscal.getSelectedRow());
+                nfdao.cancelarI(nf);
+                model.recarregaTabela();
+            }            
         } 
     }//GEN-LAST:event_botaoAlterarMedActionPerformed
 
@@ -245,6 +248,9 @@ public class JanelaNf extends javax.swing.JFrame {
         centralizar.setHorizontalAlignment(JLabel.CENTER);
         centralizar.setVerticalAlignment(JLabel.CENTER);
         
+        UIManager.put("OptionPane.cancelButtonText", "Cancelar"); 
+        UIManager.put("OptionPane.noButtonText", "Não"); 
+        UIManager.put("OptionPane.yesButtonText", "Sim");        
     }
     
     /**
