@@ -84,4 +84,21 @@ public class NotaFiscalDAO {
         }
     }
     
+    public void cancelarI(NotaFiscal nf){
+        Connection c = ConectarBd.getConnection();
+        PreparedStatement stmt = null;
+        
+        try {
+            stmt = c.prepareStatement("DELETE FROM notafiscal WHERE numeronf = ?");
+            stmt.setInt(1, nf.getNumeronf());
+            
+            stmt.execute();
+            JOptionPane.showMessageDialog(null, "Nota fiscal cancelada com sucesso!");
+        } catch (HeadlessException | SQLException e) {
+            JOptionPane.showMessageDialog(null, "080620231400 - Falha ao cancelar nota fiscal: " + e);
+        } finally {
+            ConectarBd.closeConnection(c, stmt);
+        }
+    }
+    
 }

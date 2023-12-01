@@ -12,6 +12,7 @@ import Objetos.Compra;
 import Objetos.MedComprados;
 import Objetos.Medicamento;
 import java.awt.Cursor;
+import java.awt.Font;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,7 +20,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -51,6 +55,7 @@ public final class JanelaMedComprados extends javax.swing.JFrame {
         caixaInsValorTotal.setVisible(false);
         
         TabMedComp.setModel(model);
+        formatar();
     }
     
     public JanelaMedComprados(Compra compEfetuada, String botao) {
@@ -85,6 +90,7 @@ public final class JanelaMedComprados extends javax.swing.JFrame {
         comp.setCodCompra(compEfetuada.getCodCompra());
         
         caixaInsData.setText(desconverterData(comp.getDataCompra()));
+        formatar();
     }
 
     /**
@@ -127,6 +133,7 @@ public final class JanelaMedComprados extends javax.swing.JFrame {
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         caixaData.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         caixaData.setText("Data da compra");
@@ -137,6 +144,7 @@ public final class JanelaMedComprados extends javax.swing.JFrame {
         caixaValorUnMed.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         caixaValorUnMed.setText("Valor unitário");
 
+        caixaInsValorUnMed.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         caixaInsValorUnMed.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 caixaInsValorUnMedKeyReleased(evt);
@@ -146,6 +154,7 @@ public final class JanelaMedComprados extends javax.swing.JFrame {
         caixaQntdMed.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         caixaQntdMed.setText("Quantidade");
 
+        caixaInsQntdMed.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         caixaInsQntdMed.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 caixaInsQntdMedKeyReleased(evt);
@@ -241,6 +250,8 @@ public final class JanelaMedComprados extends javax.swing.JFrame {
 
         caixaValComp.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         caixaValComp.setText("Valor total");
+
+        caixaInsValComp.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
 
         botaoVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Logo/Voltar.png"))); // NOI18N
         botaoVoltar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -398,12 +409,13 @@ public final class JanelaMedComprados extends javax.swing.JFrame {
             if (cadastro != 0) {
                 if (compDao.addItensComp(comp, medComprados)) {
                     System.out.println("Cadastro feito com sucesso querida!!");
+                    this.dispose();
                 } else {
                     compDao.deletar(comp);
                 }
             }
-        } else {
-            
+        } else if (botaoPress.equals("Atualizar Itens")){
+            this.dispose();
         }
     }//GEN-LAST:event_botaoCadastrarCompraActionPerformed
 
@@ -578,6 +590,17 @@ public final class JanelaMedComprados extends javax.swing.JFrame {
         this.setCursor(Cursor.DEFAULT_CURSOR);
     }//GEN-LAST:event_botaoVoltarMouseExited
 
+    
+    public void formatar(){
+        JTableHeader tituloTabela = TabMedComp.getTableHeader();
+        tituloTabela.setFont(new Font("century gothic", Font.BOLD, 12));
+        
+        DefaultTableCellRenderer centralizar = (DefaultTableCellRenderer)
+                tituloTabela.getDefaultRenderer();
+        centralizar.setHorizontalAlignment(JLabel.CENTER);
+        centralizar.setVerticalAlignment(JLabel.CENTER);
+    }
+    
     public double calcularTotal(){
         List<MedComprados> medComprados = new ArrayList<>();
         MedComprados medComp = new MedComprados();

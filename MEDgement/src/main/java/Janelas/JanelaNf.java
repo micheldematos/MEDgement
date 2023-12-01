@@ -30,6 +30,7 @@ public class JanelaNf extends javax.swing.JFrame {
     VendaDAO vendDao = new VendaDAO();
     List<Venda> vendaList = vendDao.read();
     NotaFiscalTableModel model = new NotaFiscalTableModel();
+    int clique = -1;
 
     /**
      * Creates new form JanelaNf
@@ -87,6 +88,11 @@ public class JanelaNf extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tabelaNotaFiscal.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaNotaFiscalMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabelaNotaFiscal);
 
         botaoAlterarMed.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
@@ -166,7 +172,7 @@ public class JanelaNf extends javax.swing.JFrame {
             NotaFiscalDAO nfdao = new NotaFiscalDAO();
             NotaFiscal nf = model.pegaDadosLinha(tabelaNotaFiscal.getSelectedRow());
             
-            //nfdao.cancelar(nf);
+            nfdao.cancelarI(nf);
             
             model.recarregaTabela();
         } 
@@ -199,6 +205,16 @@ public class JanelaNf extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.setCursor(Cursor.DEFAULT_CURSOR);
     }//GEN-LAST:event_botaoVoltarMouseExited
+
+    private void tabelaNotaFiscalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaNotaFiscalMouseClicked
+        // TODO add your handling code here:
+        if (tabelaNotaFiscal.getSelectedRow() != -1 && clique != tabelaNotaFiscal.getSelectedRow()) {
+            clique = tabelaNotaFiscal.getSelectedRow();
+        } else if (tabelaNotaFiscal.getSelectedRow() != -1 && clique == tabelaNotaFiscal.getSelectedRow()){
+            clique = -1;
+            tabelaNotaFiscal.clearSelection();
+        }
+    }//GEN-LAST:event_tabelaNotaFiscalMouseClicked
 
     private String getDateTime() {
 	DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");

@@ -232,6 +232,7 @@ public final class JanelaCompra extends javax.swing.JFrame {
         caixaPesquisar.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         caixaPesquisar.setText("Pesquisar");
 
+        caixaInsPesquisar.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         caixaInsPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 caixaInsPesquisarKeyReleased(evt);
@@ -478,6 +479,7 @@ public final class JanelaCompra extends javax.swing.JFrame {
 
                 JanelaMedComprados addItens = new JanelaMedComprados(comp, "Avançar");
                 addItens.setVisible(true);
+                desselecionar();
 
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Falha em cadastrar compra(608697097): " + e);
@@ -511,6 +513,7 @@ public final class JanelaCompra extends javax.swing.JFrame {
             CompraDAO dao = new CompraDAO();
             
             dao.atualizar(comp);
+            desselecionar();
         } else if (fornList.get(fornComboBox.getSelectedIndex()).getSituacaofornecedor() == 0) {
             JOptionPane.showMessageDialog(null, "Ative o cadastro de fornecedor em sua tela de cadastro",
                     "FORNECEDOR DESATIVADO!", NORMAL);
@@ -546,13 +549,17 @@ public final class JanelaCompra extends javax.swing.JFrame {
             }
                         
         } else {
-            clique = -1;
-            tabelaCompra.clearSelection();
-            consultaItens.setVisible(false);
-            botaoConsItem.setVisible(false);
+            desselecionar();
         }
     }//GEN-LAST:event_tabelaCompraMouseClicked
 
+    public void desselecionar(){
+        clique = -1;
+        tabelaCompra.clearSelection();
+        consultaItens.setVisible(false);
+        botaoConsItem.setVisible(false);
+    }
+    
     public void consultaCompra(int codCompra, String dataEntrega, String formaPag, int codForn, String nomeForn ){
         consultaItens.setVisible(true);
         consultaCod.setText(String.valueOf(codCompra));
@@ -574,6 +581,7 @@ public final class JanelaCompra extends javax.swing.JFrame {
             if (cadastro) {
                 Compra comp = model.pegaDadosLinha(tabelaCompra.getSelectedRow());
                 compDao.deletar(comp);
+                desselecionar();
             } else {
                 JOptionPane.showMessageDialog(null, "Existem medicamentos com a quantidade menor do que o estoque!");
             }
@@ -673,7 +681,7 @@ public final class JanelaCompra extends javax.swing.JFrame {
         
         
         JTableHeader tituloTabela = tabelaCompra.getTableHeader();
-        tituloTabela.setFont(new Font("Arial", Font.BOLD, 12));
+        tituloTabela.setFont(new Font("century gothic", Font.BOLD, 12));
         
         DefaultTableCellRenderer centralizar = (DefaultTableCellRenderer)
         tituloTabela.getDefaultRenderer();
