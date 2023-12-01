@@ -10,6 +10,7 @@ import DAO.FornecedorDAO;
 import Objetos.Endereco;
 import Regex.ValidacaoRegex;
 import java.awt.Cursor;
+import java.awt.Font;
 import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
@@ -17,7 +18,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -42,6 +46,7 @@ public final class JanelaFornecedor extends javax.swing.JFrame {
         consultaItens.setVisible(false);
         
         organizarCaixasInserir();
+        formatar();
     }
     
     public JanelaFornecedor(TelaInicial inicio) throws ParseException {
@@ -52,6 +57,8 @@ public final class JanelaFornecedor extends javax.swing.JFrame {
         consultaItens.setVisible(false);
         
         organizarCaixasInserir();
+        formatar();
+        
         this.inicio = inicio;
     }
 
@@ -115,6 +122,7 @@ public final class JanelaFornecedor extends javax.swing.JFrame {
         botaoVoltar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         setSize(new java.awt.Dimension(900, 550));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -129,31 +137,31 @@ public final class JanelaFornecedor extends javax.swing.JFrame {
         caixaIEFornecedor.setText("Inscrição Estadual");
 
         caixaCNPJFornecedor.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        caixaCNPJFornecedor.setText("CNPJ:");
+        caixaCNPJFornecedor.setText("CNPJ");
 
         caixaNomeFornecedor.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        caixaNomeFornecedor.setText("Nome:");
+        caixaNomeFornecedor.setText("Nome");
 
         caixaRuaFornecedor.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        caixaRuaFornecedor.setText("Rua:");
+        caixaRuaFornecedor.setText("Rua");
 
         caixaNumFornecedor.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        caixaNumFornecedor.setText("Número:");
+        caixaNumFornecedor.setText("Número");
 
         caixaCompFornecedor.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        caixaCompFornecedor.setText("Complemento:");
+        caixaCompFornecedor.setText("Complemento");
 
         caixaBairroFornecedor.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        caixaBairroFornecedor.setText("Bairro:");
+        caixaBairroFornecedor.setText("Bairro");
 
         caixaCidadeFornecedor.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        caixaCidadeFornecedor.setText("Cidade:");
+        caixaCidadeFornecedor.setText("Cidade");
 
         caixaEstadoFornecedor.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        caixaEstadoFornecedor.setText("Estado:");
+        caixaEstadoFornecedor.setText("Estado");
 
         caixaCEPFornecedor.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        caixaCEPFornecedor.setText("CEP:");
+        caixaCEPFornecedor.setText("CEP");
 
         caixaInsNomeForn.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
 
@@ -419,47 +427,53 @@ public final class JanelaFornecedor extends javax.swing.JFrame {
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 845, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                .addComponent(caixaNomeFornecedor)
-                                                .addGap(82, 82, 82)
-                                                .addComponent(caixaInsNomeForn))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addGroup(layout.createSequentialGroup()
-                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                            .addComponent(caixaCNPJFornecedor)
-                                                            .addComponent(caixaRuaFornecedor)
-                                                            .addComponent(caixaNumFornecedor))
-                                                        .addGap(0, 0, Short.MAX_VALUE))
-                                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(caixaBairroFornecedor)
-                                                        .addComponent(caixaCompFornecedor)
-                                                        .addComponent(caixaCidadeFornecedor)
-                                                        .addComponent(caixaEstadoFornecedor)
-                                                        .addComponent(caixaCEPFornecedor)))
-                                                .addGap(32, 32, 32)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                    .addComponent(caixaInsEstForn, javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addComponent(caixaInsCidForn, javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addComponent(caixaInsBairroForn, javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addComponent(caixaInsCompForn, javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addComponent(caixaInsNumForn, javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addComponent(caixaInsRuaForn, javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addComponent(caixaInsCNPJForn)
-                                                    .addComponent(caixaInsCEPForn, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                .addComponent(botaoCadastrarForn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(botaoAlterarForn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(botaoLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(botaoInativarForn, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGroup(layout.createSequentialGroup()
-                                            .addComponent(caixaIEFornecedor)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(caixaInsIEForn, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(caixaCNPJFornecedor)
+                                            .addGap(0, 90, Short.MAX_VALUE)
+                                            .addComponent(caixaInsCNPJForn, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                            .addComponent(botaoCadastrarForn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(botaoAlterarForn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(botaoLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+                                            .addComponent(botaoInativarForn, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(layout.createSequentialGroup()
+                                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(caixaRuaFornecedor)
+                                                        .addComponent(caixaNumFornecedor))
+                                                    .addGap(0, 0, Short.MAX_VALUE))
+                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(caixaBairroFornecedor)
+                                                    .addComponent(caixaCompFornecedor)
+                                                    .addComponent(caixaCidadeFornecedor)
+                                                    .addComponent(caixaEstadoFornecedor)))
+                                            .addGap(32, 32, 32)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(caixaInsEstForn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+                                                .addComponent(caixaInsCidForn, javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(caixaInsBairroForn, javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(caixaInsCompForn, javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(caixaInsNumForn, javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(caixaInsRuaForn, javax.swing.GroupLayout.Alignment.TRAILING)))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(caixaCEPFornecedor)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(caixaInsCEPForn, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                    .addComponent(caixaIEFornecedor)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                                                .addGroup(layout.createSequentialGroup()
+                                                    .addComponent(caixaNomeFornecedor)
+                                                    .addGap(85, 85, 85)))
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(caixaInsNomeForn)
+                                                .addComponent(caixaInsIEForn, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE))))
                                     .addGap(12, 12, 12)
                                     .addComponent(consultaItens, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(0, 29, Short.MAX_VALUE))))
@@ -469,7 +483,7 @@ public final class JanelaFornecedor extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(caixaFornecedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botaoVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -479,57 +493,57 @@ public final class JanelaFornecedor extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(caixaInsNomeForn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(caixaNomeFornecedor))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(3, 3, 3)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(caixaInsIEForn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(caixaIEFornecedor))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(3, 3, 3)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(caixaInsCNPJForn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(caixaCNPJFornecedor))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(4, 4, 4)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(caixaInsCEPForn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(caixaCEPFornecedor))
+                        .addGap(4, 4, 4)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(caixaInsRuaForn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(caixaRuaFornecedor))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(3, 3, 3)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(caixaInsNumForn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(caixaNumFornecedor))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(3, 3, 3)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(caixaInsCompForn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(caixaCompFornecedor))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(3, 3, 3)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(caixaInsBairroForn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(caixaBairroFornecedor))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(3, 3, 3)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(caixaInsCidForn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(caixaCidadeFornecedor))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(3, 3, 3)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(caixaInsEstForn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(caixaEstadoFornecedor))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(caixaInsCEPForn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(caixaCEPFornecedor))
-                        .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(botaoLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(botaoCadastrarForn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(botaoAlterarForn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(botaoInativarForn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(consultaItens, javax.swing.GroupLayout.PREFERRED_SIZE, 321, Short.MAX_VALUE))
-                .addGap(36, 36, 36)
+                    .addComponent(consultaItens, javax.swing.GroupLayout.PREFERRED_SIZE, 290, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(caixaPesquisar)
                     .addComponent(caixaInsPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48))
         );
 
         pack();
@@ -634,14 +648,6 @@ public final class JanelaFornecedor extends javax.swing.JFrame {
                 botaoInativarForn.setIcon(desactivate);
             }
 
-    //        switch (f.getSituacaofornecedor()) {
-    //            case 0 -> botaoInativarForn.setText("Ativar");
-    //            case 1 -> botaoInativarForn.setText("Inativar");
-    //            default -> {
-    //                botaoInativarForn.setText("Ativar / Inativar");
-    //            }
-    //        }
-
             consultaFornecedor(f.getCodfornecedor(), f.getRuafornecedor(), f.getNumerofornecedor(),
                     f.getBairrofornecedor(), f.getCidadefornecedor(), f.getEstadofornecedor(),
                     f.getCepfornecedor(), f.getComplementofornecedor());
@@ -728,6 +734,17 @@ public final class JanelaFornecedor extends javax.swing.JFrame {
         this.setCursor(Cursor.DEFAULT_CURSOR);
     }//GEN-LAST:event_botaoVoltarMouseExited
 
+    public void formatar(){
+        JTableHeader tituloTabela = tabelaFornecedores.getTableHeader();
+        tituloTabela.setFont(new Font("century gothic", Font.BOLD, 12));
+        
+        DefaultTableCellRenderer centralizar = (DefaultTableCellRenderer)
+                tituloTabela.getDefaultRenderer();
+        centralizar.setHorizontalAlignment(JLabel.CENTER);
+        centralizar.setVerticalAlignment(JLabel.CENTER);
+        
+    }
+    
     public void organizarCaixasInserir() throws ParseException{
         caixaInsCEPForn.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory
         (new javax.swing.text.MaskFormatter("#####-###")));
