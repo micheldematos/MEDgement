@@ -10,13 +10,17 @@ import Model.DrogariaTableModel;
 import Objetos.Endereco;
 import Regex.ValidacaoRegex;
 import java.awt.Cursor;
+import java.awt.Font;
 import java.io.IOException;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
 import org.apache.hc.core5.http.ParseException;
 
 /**
@@ -32,17 +36,18 @@ public final class JanelaDrogaria extends javax.swing.JFrame {
     TelaInicial inicio;
     
     DrogariaTableModel model = new DrogariaTableModel();
+    int clique = -1;
     
     public JanelaDrogaria() throws java.text.ParseException {
         initComponents();
         this.setLocationRelativeTo(null);
+        tabelaDrogaria.setModel(model);
         
         consultaItens.setVisible(false);
         botaoInativarDrog.setVisible(false);
         
         organizarCaixasInserir();
-        
-        organizarColunas();
+        formatar();
     }
     
     public JanelaDrogaria(TelaInicial inicio) throws java.text.ParseException {
@@ -55,6 +60,7 @@ public final class JanelaDrogaria extends javax.swing.JFrame {
         botaoInativarDrog.setVisible(false);
         
         organizarCaixasInserir();
+        formatar();
     }
     
     
@@ -118,12 +124,17 @@ public final class JanelaDrogaria extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(900, 600));
+        setResizable(false);
         setSize(new java.awt.Dimension(900, 600));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
             }
         });
+
+        caixaInsCidDrog.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+
+        caixaInsEstDrog.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
 
         botaoCadastrarDrog.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         botaoCadastrarDrog.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Logo/Adicionar.png"))); // NOI18N
@@ -169,6 +180,12 @@ public final class JanelaDrogaria extends javax.swing.JFrame {
         caixaCEPDrogaria.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         caixaCEPDrogaria.setText("CEP");
 
+        caixaInsNomeDrog.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+
+        caixaInsRuaDrog.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+
+        caixaInsNumDrog.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+
         caixaDrogaria.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         caixaDrogaria.setText("DROGARIA");
 
@@ -186,6 +203,10 @@ public final class JanelaDrogaria extends javax.swing.JFrame {
 
         caixaCompDrogaria.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         caixaCompDrogaria.setText("Complemento");
+
+        caixaInsCompDrog.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+
+        caixaInsBairroDrog.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
 
         tabelaDrogaria.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         tabelaDrogaria.setModel(new javax.swing.table.DefaultTableModel(
@@ -220,66 +241,78 @@ public final class JanelaDrogaria extends javax.swing.JFrame {
         caixaPesquisar.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         caixaPesquisar.setText("Pesquisar ");
 
+        caixaInsPesquisar.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         caixaInsPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 caixaInsPesquisarKeyReleased(evt);
             }
         });
 
+        caixaInsCEPDrog.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         caixaInsCEPDrog.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 caixaInsCEPDrogKeyReleased(evt);
             }
         });
 
+        caixaInsCNPJDrog.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+
         consultaItens.setBackground(new java.awt.Color(255, 255, 255));
         consultaItens.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 46, 138), 4, true));
 
         consultaRua.setBackground(new java.awt.Color(0, 0, 0));
+        consultaRua.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         consultaRua.setText("Rua");
 
+        consultaCidade.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         consultaCidade.setText("Cidade");
 
+        consultaBairro.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         consultaBairro.setText("Bairro");
 
-        caixaConsultaBairro.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        caixaConsultaBairro.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         caixaConsultaBairro.setText("Bairro");
 
-        caixaConsultaCidade.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        caixaConsultaCidade.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         caixaConsultaCidade.setText("Cidade");
 
         caixaConsultaRua.setBackground(new java.awt.Color(0, 0, 0));
-        caixaConsultaRua.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        caixaConsultaRua.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         caixaConsultaRua.setText("Rua");
 
         consultaDrogaria.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         consultaDrogaria.setText("CONSULTA DROGARIA");
 
-        caixaConsultaNum.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        caixaConsultaNum.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         caixaConsultaNum.setText("Número");
 
+        consultaNum.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         consultaNum.setText("Número");
 
-        caixaConsultaEstado.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        caixaConsultaEstado.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         caixaConsultaEstado.setText("Estado");
 
+        consultaEstado.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         consultaEstado.setText("Estado");
 
-        caixaConsultaCEP.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        caixaConsultaCEP.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         caixaConsultaCEP.setText("CEP");
 
+        consultaCEP.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         consultaCEP.setText("CEP");
 
         caixaConsultaCod.setBackground(new java.awt.Color(0, 0, 0));
-        caixaConsultaCod.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        caixaConsultaCod.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         caixaConsultaCod.setText("Código drogaria");
 
         consultaCod.setBackground(new java.awt.Color(0, 0, 0));
+        consultaCod.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         consultaCod.setText("Código drogaria");
 
-        caixaConsultaComplemento.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        caixaConsultaComplemento.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         caixaConsultaComplemento.setText("Complemento");
 
+        consultaComplemento.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         consultaComplemento.setText("Complemento");
 
         javax.swing.GroupLayout consultaItensLayout = new javax.swing.GroupLayout(consultaItens);
@@ -294,7 +327,6 @@ public final class JanelaDrogaria extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(consultaCod))
                     .addComponent(consultaDrogaria)
-                    .addComponent(caixaConsultaBairro)
                     .addComponent(caixaConsultaNum)
                     .addGroup(consultaItensLayout.createSequentialGroup()
                         .addGroup(consultaItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -306,8 +338,9 @@ public final class JanelaDrogaria extends javax.swing.JFrame {
                                         .addComponent(caixaConsultaCidade))
                                     .addGap(12, 12, 12))
                                 .addComponent(caixaConsultaCEP, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addComponent(caixaConsultaComplemento))
-                        .addGap(20, 20, 20)
+                            .addComponent(caixaConsultaComplemento)
+                            .addComponent(caixaConsultaBairro))
+                        .addGap(26, 26, 26)
                         .addGroup(consultaItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(consultaNum)
                             .addComponent(consultaRua)
@@ -386,15 +419,19 @@ public final class JanelaDrogaria extends javax.swing.JFrame {
                                 .addComponent(caixaInsNomeDrog, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(caixaCEPDrogaria)
-                                    .addComponent(caixaRuaDrogaria)
-                                    .addComponent(caixaCidadeDrogaria)
-                                    .addComponent(caixaEstadoDrogaria)
-                                    .addComponent(caixaNumDrogaria)
-                                    .addComponent(caixaCompDrogaria)
-                                    .addComponent(caixaCNPJDrogaria)
-                                    .addComponent(caixaBairroDrogaria))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(caixaCEPDrogaria)
+                                            .addComponent(caixaRuaDrogaria)
+                                            .addComponent(caixaCidadeDrogaria)
+                                            .addComponent(caixaEstadoDrogaria)
+                                            .addComponent(caixaNumDrogaria)
+                                            .addComponent(caixaCNPJDrogaria)
+                                            .addComponent(caixaBairroDrogaria))
+                                        .addGap(45, 45, 45))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(caixaCompDrogaria)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(caixaInsBairroDrog, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
                                     .addComponent(caixaInsNumDrog)
@@ -454,7 +491,7 @@ public final class JanelaDrogaria extends javax.swing.JFrame {
                             .addComponent(caixaInsCEPDrog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(caixaCEPDrogaria))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(caixaInsRuaDrog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(caixaRuaDrogaria))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -489,7 +526,7 @@ public final class JanelaDrogaria extends javax.swing.JFrame {
                     .addComponent(caixaPesquisar)
                     .addComponent(caixaInsPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(9, 9, 9)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
                 .addGap(20, 20, 20))
         );
 
@@ -514,6 +551,7 @@ public final class JanelaDrogaria extends javax.swing.JFrame {
             dao.criar(d);
             model.recarregaTabela();
             limpacampos();
+            desselecionar();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Falha em efetuar cadastro: " + e);
         }
@@ -542,13 +580,16 @@ public final class JanelaDrogaria extends javax.swing.JFrame {
             
             dao.atualizar(d);
             limpacampos();
+            desselecionar();
             model.recarregaTabela();
         } 
     }//GEN-LAST:event_botaoAlterarDrogActionPerformed
 
     private void tabelaDrogariaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaDrogariaMouseClicked
         // TODO add your handling code here:
-        if (tabelaDrogaria.getSelectedRow() != -1) {
+        if (tabelaDrogaria.getSelectedRow() != -1 && tabelaDrogaria.getSelectedRow() != clique) {
+            clique = tabelaDrogaria.getSelectedRow();
+            
             Drogaria d = model.pegaDadosLinha(tabelaDrogaria.getSelectedRow());
             caixaInsCNPJDrog.setText(d.getCnpjdrogaria());
             caixaInsNomeDrog.setText(d.getNomedrogaria());
@@ -574,15 +615,10 @@ public final class JanelaDrogaria extends javax.swing.JFrame {
                 botaoInativarDrog.setText("Inativar");
                 botaoInativarDrog.setIcon(desactivate);
             }
-            
-//            switch (d.getSituacaodrogaria()) {
-//                case 0 ->botaoInativarDrog.setIcon(activate);
-//                case 1 -> botaoInativarDrog.setIcon(desactivate);
-//            }
-            
             consultaDrogaria(d.getCoddrogaria(),d.getRuadrogaria(), d.getNumerodrogaria(),d.getBairrodrogaria(), 
                     d.getCidadedrogaria(), d.getEstadodrogaria(), d.getCepdrogaria(), d.getComplementodrogaria());
-            
+        } else{
+            desselecionar();
         }
     }//GEN-LAST:event_tabelaDrogariaMouseClicked
 
@@ -617,10 +653,12 @@ public final class JanelaDrogaria extends javax.swing.JFrame {
             DrogariaDAO dao = new DrogariaDAO();
             dao.inativar(d);
             limpacampos();
+            desselecionar();
         } else {
             DrogariaDAO dao = new DrogariaDAO();
             dao.ativar(d);
             limpacampos();
+            desselecionar();
         }
     }//GEN-LAST:event_botaoInativarDrogActionPerformed
 
@@ -676,6 +714,23 @@ public final class JanelaDrogaria extends javax.swing.JFrame {
         this.setCursor(Cursor.DEFAULT_CURSOR);
     }//GEN-LAST:event_botaoVoltarMouseExited
     
+    public void desselecionar(){
+        clique = -1;
+        tabelaDrogaria.clearSelection();
+        botaoInativarDrog.setVisible(false);
+        consultaItens.setVisible(false);
+    }
+    
+    public void formatar(){
+        JTableHeader tabelaTitulo = tabelaDrogaria.getTableHeader();
+        tabelaTitulo.setFont(new Font("century gothic", Font.BOLD, 12));
+        
+        DefaultTableCellRenderer centralizar = (DefaultTableCellRenderer)
+                tabelaTitulo.getDefaultRenderer();
+        centralizar.setHorizontalAlignment(JLabel.CENTER);
+        centralizar.setVerticalAlignment(JLabel.CENTER);
+    }
+    
     public void organizarCaixasInserir() throws java.text.ParseException{
         caixaInsCEPDrog.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory
         (new javax.swing.text.MaskFormatter("#####-###")));
@@ -728,22 +783,6 @@ public final class JanelaDrogaria extends javax.swing.JFrame {
         });
     }
     
-    public void organizarColunas(){
-        tabelaDrogaria.setModel(model);
-        
-        //tabelaDrogaria.getTableHeader().setResizingAllowed(false);
-        
-        tabelaDrogaria.getColumnModel().getColumn(0).setPreferredWidth(-15);
-        
-        
-//        tabelaDrogaria.getColumnModel().getColumn(1).setPreferredWidth(5);
-//        tabelaDrogaria.getColumnModel().getColumn(2).setPreferredWidth(150);
-//        tabelaDrogaria.getColumnModel().getColumn(3).setPreferredWidth(55);
-//        tabelaDrogaria.getColumnModel().getColumn(4).setPreferredWidth(70);
-//        tabelaDrogaria.getColumnModel().getColumn(5).setPreferredWidth(150);
-//        tabelaDrogaria.getColumnModel().getColumn(6).setPreferredWidth(105);
-    }
-    
     public void limpacampos(){
         caixaInsCNPJDrog.setText("");
         caixaInsNomeDrog.setText("");
@@ -755,6 +794,7 @@ public final class JanelaDrogaria extends javax.swing.JFrame {
         caixaInsEstDrog.setText("");
         caixaInsCEPDrog.setText("");
         
+        desselecionar();
         caixaInsNomeDrog.requestFocus();
     }
 

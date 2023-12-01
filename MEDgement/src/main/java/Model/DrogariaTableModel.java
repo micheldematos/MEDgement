@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
 public class DrogariaTableModel extends AbstractTableModel {
     
     private List<Drogaria> dados = new ArrayList<>();
-    private String[] colunas = {"COD", "SIT", "CNPJ", "NOME"}; // "COD", "SIT", "CNPJ", "NOME", "RUA", "N°", "COMP", "BAIRRO", "CIDADE", "UF", "CEP"
+    private String[] colunas = {"CÓDIGO", "SITUAÇÃO", "CNPJ", "NOME"}; // "COD", "SIT", "CNPJ", "NOME", "RUA", "N°", "COMP", "BAIRRO", "CIDADE", "UF", "CEP"
     
     @Override
     public String getColumnName(int column) {

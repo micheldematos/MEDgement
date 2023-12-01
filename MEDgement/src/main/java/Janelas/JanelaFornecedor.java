@@ -33,6 +33,8 @@ public final class JanelaFornecedor extends javax.swing.JFrame {
     
     FornecedorTableModel model = new FornecedorTableModel();
     FornecedorDAO dao = new FornecedorDAO();
+    
+    int clique = -1;
 
     /**
      * Creates new form JanelaFornecedor
@@ -610,16 +612,27 @@ public final class JanelaFornecedor extends javax.swing.JFrame {
             dao.inativar(f);
             limpaCampos();
             
+            clique = -1;
+            tabelaFornecedores.clearSelection();
+            botaoInativarForn.setVisible(false);
+            consultaItens.setVisible(false);
+            
         } else {
             FornecedorDAO dao = new FornecedorDAO();
             dao.ativar(f);
             limpaCampos();
+            
+            clique = -1;
+            tabelaFornecedores.clearSelection();
+            botaoInativarForn.setVisible(false);
+            consultaItens.setVisible(false);
         }
     }//GEN-LAST:event_botaoInativarFornActionPerformed
 
     private void tabelaFornecedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaFornecedoresMouseClicked
         // TODO add your handling code here:
-        if (tabelaFornecedores.getSelectedRow() != -1) {
+        if (tabelaFornecedores.getSelectedRow() != -1 && tabelaFornecedores.getSelectedRow() != clique) {
+            clique = tabelaFornecedores.getSelectedRow();
 
             botaoInativarForn.setVisible(true);
 
@@ -651,6 +664,11 @@ public final class JanelaFornecedor extends javax.swing.JFrame {
             consultaFornecedor(f.getCodfornecedor(), f.getRuafornecedor(), f.getNumerofornecedor(),
                     f.getBairrofornecedor(), f.getCidadefornecedor(), f.getEstadofornecedor(),
                     f.getCepfornecedor(), f.getComplementofornecedor());
+        } else {
+            clique = -1;
+            tabelaFornecedores.clearSelection();
+            botaoInativarForn.setVisible(false);
+            consultaItens.setVisible(false);
         }
     }//GEN-LAST:event_tabelaFornecedoresMouseClicked
 
