@@ -698,6 +698,8 @@ public final class JanelaVenda extends javax.swing.JFrame {
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(null, e,"ERRO NÃO ESPERADO", 0);
                 }
+            } else if (emitirNF == 1){
+                ocultar();
             }
             
         } else if (drogList.get(DrogComboBox.getSelectedIndex()).getSituacaodrogaria() == 0){
@@ -723,6 +725,8 @@ public final class JanelaVenda extends javax.swing.JFrame {
                 model.recarregaTabela();
                 tabelaVenda.clearSelection();
                 clique = -1;
+                ocultar();
+            } else if (cancelarNf == 1){
                 ocultar();
             }
         }
@@ -788,6 +792,8 @@ public final class JanelaVenda extends javax.swing.JFrame {
         botaoCancelarNf.setVisible(false);
         consultaItens.setVisible(false);
         botaoConsItens.setVisible(false);
+        
+        clique = -1;
     }
     
     public String converterData(String dataDigitada){

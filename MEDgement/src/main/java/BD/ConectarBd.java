@@ -19,7 +19,7 @@ public class ConectarBd {
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String URL = "jdbc:mysql://localhost/projetoIntegrador?user=";
     private static final String USER = "root";
-    private static final String PASS = "123456"; 
+    private static final String PASS = "Mic2207@"; 
         
     public static Connection getConnection(){
         try {
