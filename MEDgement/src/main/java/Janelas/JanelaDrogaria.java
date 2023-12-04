@@ -41,6 +41,7 @@ public final class JanelaDrogaria extends javax.swing.JFrame {
     
     public JanelaDrogaria() throws java.text.ParseException {
         initComponents();
+        
         this.setLocationRelativeTo(null);
         tabelaDrogaria.setModel(model);
         
@@ -53,15 +54,16 @@ public final class JanelaDrogaria extends javax.swing.JFrame {
     
     public JanelaDrogaria(TelaInicial inicio) throws java.text.ParseException {
         initComponents();
+        
         this.setLocationRelativeTo(null);
         tabelaDrogaria.setModel(model);
-        this.inicio = inicio;
-        
+                
         consultaItens.setVisible(false);
         botaoInativarDrog.setVisible(false);
         
         organizarCaixasInserir();
         formatar();
+        this.inicio = inicio;
     }
     
     

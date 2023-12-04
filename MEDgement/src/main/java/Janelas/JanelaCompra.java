@@ -68,11 +68,6 @@ public final class JanelaCompra extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         
-//        for (int i = 0; i < fornList.size(); i++) {
-//            fornComboBox.addItem(String.valueOf((fornList.get(i).getCodfornecedor())) + " - " + 
-//                    fornList.get(i).getNomefornecedor());
-//        }
-        
         for (int i = 0; i < fornList.size(); i++) {
             if (fornList.get(i).getSituacaofornecedor() == 1) {
                 fornComboBox.addItem(String.valueOf((fornList.get(i).getCodfornecedor())) + " - " + 
@@ -82,6 +77,7 @@ public final class JanelaCompra extends javax.swing.JFrame {
                     fornList.get(i).getNomefornecedor()+")");
             }
         }
+        
         organizarCaixasInserir();
         formatar();
         

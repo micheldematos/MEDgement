@@ -47,11 +47,6 @@ public final class JanelaVenda extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         
-//        for (int i = 0; i < drogList.size(); i++) {
-//            DrogComboBox.addItem(String.valueOf((drogList.get(i).getCoddrogaria())) + " - " + 
-//                    drogList.get(i).getNomedrogaria());
-//        }
-//        
         for (int i = 0; i < drogList.size(); i++) {
             if (drogList.get(i).getSituacaodrogaria() == 1) {
                 DrogComboBox.addItem(String.valueOf((drogList.get(i).getCoddrogaria())) + " - " + 
@@ -64,10 +59,6 @@ public final class JanelaVenda extends javax.swing.JFrame {
         
         tabelaVenda.setModel(model);
         caixaInsDataVend.setText(desconverterData(String.valueOf(LocalDate.now())));
-        botaoEmitirNf.setVisible(false);
-        botaoCancelarNf.setVisible(false);
-        consultaItens.setVisible(false);
-        botaoConsItens.setVisible(false);
         
         formatar();
         ocultar();
@@ -89,7 +80,6 @@ public final class JanelaVenda extends javax.swing.JFrame {
         
         tabelaVenda.setModel(model);
         caixaInsDataVend.setText(desconverterData(String.valueOf(LocalDate.now())));
-        
         
         formatar();
         ocultar();

@@ -23,9 +23,7 @@ public class TelaLogin extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         
-        UIManager.put("OptionPane.cancelButtonText", "Cancelar"); 
-        UIManager.put("OptionPane.noButtonText", "Não"); 
-        UIManager.put("OptionPane.yesButtonText", "Sim");
+        formatar();
     }
 
     /**
@@ -185,6 +183,12 @@ public class TelaLogin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botaoEntrarMouseClicked
 
+    public void formatar(){
+        UIManager.put("OptionPane.cancelButtonText", "Cancelar"); 
+        UIManager.put("OptionPane.noButtonText", "Não"); 
+        UIManager.put("OptionPane.yesButtonText", "Sim");
+    }
+    
     /**
      * @param args the command line arguments
      */

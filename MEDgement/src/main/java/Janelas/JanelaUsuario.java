@@ -42,10 +42,10 @@ public final class JanelaUsuario extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         tabelaUsuario.setModel(model);
         
-        organizarCaixasInserir();
         botaoInativar.setVisible(false);
         consultaItens.setVisible(false);
         
+        organizarCaixasInserir();
         formatar();
     }
     
@@ -54,11 +54,12 @@ public final class JanelaUsuario extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         tabelaUsuario.setModel(model);
         
-        organizarCaixasInserir();
         botaoInativar.setVisible(false);
         consultaItens.setVisible(false);
         
+        organizarCaixasInserir();
         formatar();
+        
         this.inicio = inicio;
     }
 

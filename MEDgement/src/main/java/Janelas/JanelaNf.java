@@ -26,11 +26,10 @@ import javax.swing.table.JTableHeader;
  *
  * @author michel.matos
  */
-public class JanelaNf extends javax.swing.JFrame {
+public final class JanelaNf extends javax.swing.JFrame {
     
     TelaInicial inicio;
     VendaDAO vendDao = new VendaDAO();
-    List<Venda> vendaList = vendDao.read();
     NotaFiscalTableModel model = new NotaFiscalTableModel();
     int clique = -1;
 

@@ -46,7 +46,6 @@ public final class JanelaMedicamento extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         
-        // incluir fornecedores inativos
         for (int i = 0; i < fornList.size(); i++) {
             if (fornList.get(i).getSituacaofornecedor() == 1) {
                 fornComboBox.addItem(String.valueOf((fornList.get(i).getCodfornecedor())) + " - " + 
@@ -67,7 +66,6 @@ public final class JanelaMedicamento extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         
-        // incluir fornecedores inativos
         for (int i = 0; i < fornList.size(); i++) {
             if (fornList.get(i).getSituacaofornecedor() == 1) {
                 fornComboBox.addItem(String.valueOf((fornList.get(i).getCodfornecedor())) + " - " + 

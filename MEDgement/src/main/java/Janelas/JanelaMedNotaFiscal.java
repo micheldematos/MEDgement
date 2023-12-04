@@ -45,8 +45,7 @@ public final class JanelaMedNotaFiscal extends javax.swing.JFrame {
         TabMedVend.setModel(model);
         formatar();
         
-        this.voltar = voltar;
-        
+        this.voltar = voltar;        
     }
     
     /**

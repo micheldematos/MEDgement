@@ -31,18 +31,14 @@ public class TelaInicial extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         
-        UIManager.put("OptionPane.cancelButtonText", "Cancelar"); 
-        UIManager.put("OptionPane.noButtonText", "Não"); 
-        UIManager.put("OptionPane.yesButtonText", "Sim");
+        formatar();
     }
     
     public TelaInicial(String codUsuario) {
         initComponents();
         this.setLocationRelativeTo(null);
         
-        UIManager.put("OptionPane.cancelButtonText", "Cancelar"); 
-        UIManager.put("OptionPane.noButtonText", "Não"); 
-        UIManager.put("OptionPane.yesButtonText", "Sim");
+        formatar();
         
         List<Usuario> user = userDao.pesquisarCod(codUsuario);    
         tipoUser = user.get(0).getTipousuario();
@@ -394,8 +390,13 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void genComActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genComActionPerformed
         // TODO add your handling code here:
-        JanelaCompra compra = new JanelaCompra(this);
-        compra.setVisible(true);
+        JanelaCompra compra;
+        try {
+            compra = new JanelaCompra(this);
+            compra.setVisible(true);
+        } catch (ParseException ex) {
+            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.setVisible(false);
     }//GEN-LAST:event_genComActionPerformed
 
@@ -491,8 +492,13 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void imgCompMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imgCompMouseClicked
         // TODO add your handling code here:
-        JanelaCompra compra = new JanelaCompra(this);
-        compra.setVisible(true);
+        JanelaCompra compra;
+        try {
+            compra = new JanelaCompra(this);
+            compra.setVisible(true);
+        } catch (ParseException ex) {
+            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.setVisible(false);
     }//GEN-LAST:event_imgCompMouseClicked
 
@@ -645,6 +651,12 @@ public class TelaInicial extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_imgLogoutMouseClicked
 
+    public void formatar(){
+        UIManager.put("OptionPane.cancelButtonText", "Cancelar"); 
+        UIManager.put("OptionPane.noButtonText", "Não"); 
+        UIManager.put("OptionPane.yesButtonText", "Sim");
+    }
+    
     /**
      * @param args the command line arguments
      */
