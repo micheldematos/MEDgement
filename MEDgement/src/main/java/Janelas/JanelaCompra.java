@@ -466,9 +466,6 @@ public final class JanelaCompra extends javax.swing.JFrame {
 
     private void botaoAvançarCompActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAvançarCompActionPerformed
         // TODO add your handling code here:
-        
-        
-        
         if (fornComboBox.getSelectedIndex() != -1 && fornList.get(fornComboBox.getSelectedIndex()).getSituacaofornecedor() != 0) {
             Compra comp = new Compra();
         

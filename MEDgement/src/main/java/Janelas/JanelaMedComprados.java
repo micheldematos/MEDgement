@@ -50,8 +50,13 @@ public final class JanelaMedComprados extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         
         for (int i = 0; i < medList.size(); i++) {
-            MedComboBox.addItem(String.valueOf((medList.get(i).getCodmedicamento())) + " - " + 
+            if (medList.get(i).getSituacaomed() == 1) {
+                MedComboBox.addItem(String.valueOf((medList.get(i).getCodmedicamento())) + " - " + 
                     medList.get(i).getNomemedicamento() + " (" + medList.get(i).getQuantidadeestoque() + " unidades)" );
+            } else if (medList.get(i).getSituacaomed() == 0) {
+                MedComboBox.addItem(String.valueOf("INATIVADO (" + (medList.get(i).getCodmedicamento())) + " - " + 
+                    medList.get(i).getNomemedicamento() + " [" + medList.get(i).getQuantidadeestoque() + " unidades])" );
+            }
         }
         
         caixaValorTotal.setVisible(false);
@@ -66,8 +71,13 @@ public final class JanelaMedComprados extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         
         for (int i = 0; i < medList.size(); i++) {
-            MedComboBox.addItem(String.valueOf((medList.get(i).getCodmedicamento())) + " - " + 
+            if (medList.get(i).getSituacaomed() == 1) {
+                MedComboBox.addItem(String.valueOf((medList.get(i).getCodmedicamento())) + " - " + 
                     medList.get(i).getNomemedicamento() + " (" + medList.get(i).getQuantidadeestoque() + " unidades)" );
+            } else if (medList.get(i).getSituacaomed() == 0) {
+                MedComboBox.addItem(String.valueOf("INATIVADO (" + (medList.get(i).getCodmedicamento())) + " - " + 
+                    medList.get(i).getNomemedicamento() + " [" + medList.get(i).getQuantidadeestoque() + " unidades])" );
+            }
         }
         
         String botaoPress = "Avançar";
@@ -367,28 +377,33 @@ public final class JanelaMedComprados extends javax.swing.JFrame {
 
     private void botaoAddItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAddItemActionPerformed
         // TODO add your handling code here:
-        boolean medCadastrado = false;
+        if (MedComboBox.getSelectedIndex() != -1 && medList.get(MedComboBox.getSelectedIndex()).getSituacaomed() == 1) {
+            boolean medCadastrado = false;
         
-        if (TabMedComp.getRowCount() == 0) {
-            medCadastrado = false;
-        } else {
-            for (int i = 0; i < TabMedComp.getRowCount(); i++) {
-            
-            int codmed = medList.get(MedComboBox.getSelectedIndex()).getCodmedicamento();
-            int codMedAdd = Integer.parseInt(String.valueOf(TabMedComp.getValueAt(i, 4)));
-            
-                if (codmed == codMedAdd) {
-                    medCadastrado = true;
+            if (TabMedComp.getRowCount() == 0) {
+                medCadastrado = false;
+            } else {
+                for (int i = 0; i < TabMedComp.getRowCount(); i++) {
+
+                int codmed = medList.get(MedComboBox.getSelectedIndex()).getCodmedicamento();
+                int codMedAdd = Integer.parseInt(String.valueOf(TabMedComp.getValueAt(i, 4)));
+
+                    if (codmed == codMedAdd) {
+                        medCadastrado = true;
+                    }
                 }
             }
-        }
-        
-        String botaoPress = botaoCadastrarCompra.getText();
-        
-        if (medCadastrado) {
-            JOptionPane.showMessageDialog(null, "Medicamento já cadastrado");
-        } else {
-            addItens(botaoPress);
+
+            String botaoPress = botaoCadastrarCompra.getText();
+
+            if (medCadastrado) {
+                JOptionPane.showMessageDialog(null, "Medicamento já cadastrado");
+            } else {
+                addItens(botaoPress);
+            }
+        } else if (medList.get(MedComboBox.getSelectedIndex()).getSituacaomed() == 0) {
+            JOptionPane.showMessageDialog(null, "Ative o cadastro do medicamento em sua tela de cadastro",
+                    "MEDICAMENTO INATIVADO!",NORMAL);
         }
         
     }//GEN-LAST:event_botaoAddItemActionPerformed
