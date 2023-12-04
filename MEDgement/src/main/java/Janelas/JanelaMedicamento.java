@@ -519,8 +519,6 @@ public final class JanelaMedicamento extends javax.swing.JFrame {
             Medicamento med = model.pegaDadosLinha(tabelaMedicamento.getSelectedRow());
 
             botaoInativarMed.setVisible(true);
-            
-            //System.out.println(med.getCodfornecedor() + "   " + fornList.get(fornComboBox.getSelectedIndex()).getCodfornecedor());
 
             caixaInsNomMed.setText(med.getNomemedicamento());
             caixaInsDescMed.setText(med.getDescricaomedicamento());
