@@ -20,6 +20,7 @@ import java.util.List;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 
@@ -491,17 +492,23 @@ public final class JanelaMedicamento extends javax.swing.JFrame {
     private void botaoAlterarMedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAlterarMedActionPerformed
         // TODO add your handling code here:
         if (tabelaMedicamento.getSelectedRow() != -1) {
-            model.setValueAt(caixaInsNomMed.getText(), tabelaMedicamento.getSelectedRow(), 1);
-            model.setValueAt(caixaInsDescMed.getText(), tabelaMedicamento.getSelectedRow(), 2);
-            model.setValueAt(String.valueOf(caixaInsValorVendMed.getText()), tabelaMedicamento.getSelectedRow(), 5);
-            model.setValueAt(String.valueOf(fornList.get(fornComboBox.getSelectedIndex()).getCodfornecedor()), tabelaMedicamento.getSelectedRow(), 8);
+            int alterarMed = JOptionPane.showConfirmDialog(null, "Alterar medicamento?", "CONFIRMAR", JOptionPane.YES_NO_OPTION);
             
-            Medicamento med = model.pegaDadosLinha(tabelaMedicamento.getSelectedRow());
-            MedicamentoDAO dao = new MedicamentoDAO();
-            
-            dao.atualizar(med);
-            limpacampos();
-            model.recarregaTabela();
+            if (alterarMed == 0) {
+                model.setValueAt(caixaInsNomMed.getText(), tabelaMedicamento.getSelectedRow(), 1);
+                model.setValueAt(caixaInsDescMed.getText(), tabelaMedicamento.getSelectedRow(), 2);
+                model.setValueAt(String.valueOf(caixaInsValorVendMed.getText()), tabelaMedicamento.getSelectedRow(), 5);
+                model.setValueAt(String.valueOf(fornList.get(fornComboBox.getSelectedIndex()).getCodfornecedor()), tabelaMedicamento.getSelectedRow(), 8);
+
+                Medicamento med = model.pegaDadosLinha(tabelaMedicamento.getSelectedRow());
+                MedicamentoDAO dao = new MedicamentoDAO();
+
+                dao.atualizar(med);
+                limpacampos();
+                model.recarregaTabela();
+            } else if (alterarMed == 1){
+                ocultar();
+            }            
         }
     }//GEN-LAST:event_botaoAlterarMedActionPerformed
 
@@ -542,10 +549,7 @@ public final class JanelaMedicamento extends javax.swing.JFrame {
                     med.getDataultimacompra(), med.getValorcusto(), 
                     med.getQuantidadeestoque(), med.getCodfornecedor());
         } else {
-            clique = -1;
-            tabelaMedicamento.clearSelection();
-            botaoInativarMed.setVisible(false);
-            consultaItens.setVisible(false);
+            ocultar();
         }
     }//GEN-LAST:event_tabelaMedicamentoMouseClicked
 
@@ -593,30 +597,42 @@ public final class JanelaMedicamento extends javax.swing.JFrame {
         Medicamento med = model.pegaDadosLinha(tabelaMedicamento.getSelectedRow());
         
         if ("Inativar".equals(botaoInativarMed.getText())) {
-            MedicamentoDAO dao = new MedicamentoDAO();
-            dao.inativar(med);
-            limpacampos();
-            
-            clique = -1;
-            tabelaMedicamento.clearSelection();
-            botaoInativarMed.setVisible(false);
-            consultaItens.setVisible(false);
-            
+            int inativarMed = JOptionPane.showConfirmDialog(null, "Inativar medicamento?","CONFIRMAR",JOptionPane.YES_NO_OPTION);
+            if (inativarMed == 0) {
+                MedicamentoDAO dao = new MedicamentoDAO();
+                dao.inativar(med);
+                limpacampos();
+                ocultar(); 
+            } else if(inativarMed == 1){
+                ocultar();
+            }            
         } else {
-            MedicamentoDAO dao = new MedicamentoDAO();
-            dao.ativar(med);
-            limpacampos();
+            int ativarMed = JOptionPane.showConfirmDialog(null, "Ativar medicamento?", "CONFIRMAR", JOptionPane.YES_NO_OPTION);
             
-            clique = -1;
-            tabelaMedicamento.clearSelection();
-            botaoInativarMed.setVisible(false);
-            consultaItens.setVisible(false);
+            if(ativarMed == 0){
+                MedicamentoDAO dao = new MedicamentoDAO();
+                dao.ativar(med);
+                limpacampos();
+                ocultar();
+            } else if(ativarMed == 1){
+                MedicamentoDAO dao = new MedicamentoDAO();
+                dao.ativar(med);
+                limpacampos();
+                ocultar();
+            }            
         }
     }//GEN-LAST:event_botaoInativarMedActionPerformed
 
     private void botaoLimpar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoLimpar1ActionPerformed
         // TODO add your handling code here:
-        limpacampos();
+        int limparCampos = JOptionPane.showConfirmDialog(null, "Limpar campos?", "CONFIRMAR", JOptionPane.YES_NO_OPTION);
+        if (limparCampos == 0) {
+            limpacampos();
+            ocultar();
+        } else if (limparCampos == 1){
+            ocultar();
+        }
+        
     }//GEN-LAST:event_botaoLimpar1ActionPerformed
 
     private void caixaInsPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_caixaInsPesquisarKeyReleased
@@ -628,6 +644,13 @@ public final class JanelaMedicamento extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_caixaInsPesquisarKeyReleased
 
+    public void ocultar(){
+        clique = -1;
+        tabelaMedicamento.clearSelection();
+        botaoInativarMed.setVisible(false);
+        consultaItens.setVisible(false);
+    }
+    
     private void botaoVoltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoVoltarMouseClicked
         // TODO add your handling code here:
         inicio.setVisible(true);
@@ -689,6 +712,10 @@ public final class JanelaMedicamento extends javax.swing.JFrame {
         centralizar.setVerticalAlignment(JLabel.CENTER);
         
         botaoInativarMed.setVisible(false);
+        
+        UIManager.put("OptionPane.cancelButtonText", "Cancelar"); 
+        UIManager.put("OptionPane.noButtonText", "Não"); 
+        UIManager.put("OptionPane.yesButtonText", "Sim");
     }
     
     public void limpacampos(){
