@@ -20,6 +20,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 
@@ -579,22 +580,28 @@ public final class JanelaFornecedor extends javax.swing.JFrame {
     private void botaoAlterarFornActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAlterarFornActionPerformed
         // TODO add your handling code here:
         if (tabelaFornecedores.getSelectedRow() != -1) {
-            model.setValueAt(caixaInsIEForn.getText(), tabelaFornecedores.getSelectedRow(), 2);
-            model.setValueAt(caixaInsCNPJForn.getText(), tabelaFornecedores.getSelectedRow(), 3);
-            model.setValueAt(caixaInsNomeForn.getText(), tabelaFornecedores.getSelectedRow(), 4);
-            model.setValueAt(caixaInsRuaForn.getText(), tabelaFornecedores.getSelectedRow(), 5);
-            model.setValueAt(caixaInsNumForn.getText(), tabelaFornecedores.getSelectedRow(), 6);
-            model.setValueAt(caixaInsCompForn.getText(), tabelaFornecedores.getSelectedRow(), 7);
-            model.setValueAt(caixaInsBairroForn.getText(), tabelaFornecedores.getSelectedRow(), 8);
-            model.setValueAt(caixaInsCidForn.getText(), tabelaFornecedores.getSelectedRow(), 9);
-            model.setValueAt(caixaInsEstForn.getText(), tabelaFornecedores.getSelectedRow(), 10);
-            model.setValueAt(caixaInsCEPForn.getText(), tabelaFornecedores.getSelectedRow(), 11);
-            
-            Fornecedor f = model.pegaDadosLinha(tabelaFornecedores.getSelectedRow());
-            FornecedorDAO dao = new FornecedorDAO();
-            dao.atualizar(f);
-            limpaCampos();
-            model.recarregaTabela();
+            int alterarForn = JOptionPane.showConfirmDialog(null, "Alterar fornecedor?","CONFIRMAR",JOptionPane.YES_NO_OPTION);
+            if (alterarForn == 0) {
+                model.setValueAt(caixaInsIEForn.getText(), tabelaFornecedores.getSelectedRow(), 2);
+                model.setValueAt(caixaInsCNPJForn.getText(), tabelaFornecedores.getSelectedRow(), 3);
+                model.setValueAt(caixaInsNomeForn.getText(), tabelaFornecedores.getSelectedRow(), 4);
+                model.setValueAt(caixaInsRuaForn.getText(), tabelaFornecedores.getSelectedRow(), 5);
+                model.setValueAt(caixaInsNumForn.getText(), tabelaFornecedores.getSelectedRow(), 6);
+                model.setValueAt(caixaInsCompForn.getText(), tabelaFornecedores.getSelectedRow(), 7);
+                model.setValueAt(caixaInsBairroForn.getText(), tabelaFornecedores.getSelectedRow(), 8);
+                model.setValueAt(caixaInsCidForn.getText(), tabelaFornecedores.getSelectedRow(), 9);
+                model.setValueAt(caixaInsEstForn.getText(), tabelaFornecedores.getSelectedRow(), 10);
+                model.setValueAt(caixaInsCEPForn.getText(), tabelaFornecedores.getSelectedRow(), 11);
+
+                Fornecedor f = model.pegaDadosLinha(tabelaFornecedores.getSelectedRow());
+                FornecedorDAO dao = new FornecedorDAO();
+                dao.atualizar(f);
+                limpaCampos();
+                model.recarregaTabela();
+                ocultar();
+            } else if (alterarForn == 1){
+                ocultar();
+            }
         }
     }//GEN-LAST:event_botaoAlterarFornActionPerformed
 
@@ -608,24 +615,26 @@ public final class JanelaFornecedor extends javax.swing.JFrame {
         Fornecedor f = model.pegaDadosLinha(tabelaFornecedores.getSelectedRow());
         
         if ("Inativar".equals(botaoInativarForn.getText())) {
-            FornecedorDAO dao = new FornecedorDAO();
-            dao.inativar(f);
-            limpaCampos();
+            int inativarForn = JOptionPane.showConfirmDialog(null, "Inativar fornecedor?", "CONFIRMAR", JOptionPane.YES_NO_OPTION);
             
-            clique = -1;
-            tabelaFornecedores.clearSelection();
-            botaoInativarForn.setVisible(false);
-            consultaItens.setVisible(false);
-            
+            if (inativarForn == 0) {
+                FornecedorDAO dao = new FornecedorDAO();
+                dao.inativar(f);
+                limpaCampos();
+                ocultar();
+            } else if (inativarForn == 1){
+                ocultar();
+            }
         } else {
-            FornecedorDAO dao = new FornecedorDAO();
-            dao.ativar(f);
-            limpaCampos();
-            
-            clique = -1;
-            tabelaFornecedores.clearSelection();
-            botaoInativarForn.setVisible(false);
-            consultaItens.setVisible(false);
+            int ativarForn = JOptionPane.showConfirmDialog(null, "Ativar fornecedor?","CONFIRMAR",JOptionPane.YES_NO_OPTION);
+            if (ativarForn == 0) {
+                FornecedorDAO dao = new FornecedorDAO();
+                dao.ativar(f);
+                limpaCampos();
+                ocultar();
+            } else if (ativarForn == 1){
+                ocultar();
+            }   
         }
     }//GEN-LAST:event_botaoInativarFornActionPerformed
 
@@ -665,10 +674,7 @@ public final class JanelaFornecedor extends javax.swing.JFrame {
                     f.getBairrofornecedor(), f.getCidadefornecedor(), f.getEstadofornecedor(),
                     f.getCepfornecedor(), f.getComplementofornecedor());
         } else {
-            clique = -1;
-            tabelaFornecedores.clearSelection();
-            botaoInativarForn.setVisible(false);
-            consultaItens.setVisible(false);
+            ocultar();
         }
     }//GEN-LAST:event_tabelaFornecedoresMouseClicked
 
@@ -693,7 +699,14 @@ public final class JanelaFornecedor extends javax.swing.JFrame {
     
     private void botaoLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoLimparActionPerformed
         // TODO add your handling code here:
-        limpaCampos();
+        int limparCampos = JOptionPane.showConfirmDialog(null, "Limpar campos?", "CONFIRMAR", JOptionPane.YES_NO_OPTION);
+        if (limparCampos == 0) {
+            limpaCampos();
+            ocultar();
+        } else if (limparCampos == 1){
+            ocultar();
+        }
+        
     }//GEN-LAST:event_botaoLimparActionPerformed
 
     private void caixaInsPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_caixaInsPesquisarKeyReleased
@@ -761,6 +774,17 @@ public final class JanelaFornecedor extends javax.swing.JFrame {
         centralizar.setHorizontalAlignment(JLabel.CENTER);
         centralizar.setVerticalAlignment(JLabel.CENTER);
         
+        UIManager.put("OptionPane.cancelButtonText", "Cancelar"); 
+        UIManager.put("OptionPane.noButtonText", "Não"); 
+        UIManager.put("OptionPane.yesButtonText", "Sim");
+        
+    }
+    
+    public void ocultar(){
+        clique = -1;
+        tabelaFornecedores.clearSelection();
+        botaoInativarForn.setVisible(false);
+        consultaItens.setVisible(false);
     }
     
     public void organizarCaixasInserir() throws ParseException{

@@ -17,13 +17,12 @@ import java.awt.Font;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
-import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 
@@ -55,6 +54,7 @@ public final class JanelaCompra extends javax.swing.JFrame {
         }
         
         organizarCaixasInserir();
+        formatar();
         
         botaoConsItem.setVisible(false);
         consultaItens.setVisible(false);
@@ -64,7 +64,7 @@ public final class JanelaCompra extends javax.swing.JFrame {
         caixaInsDataEntComp.setText(desconverterData(String.valueOf(LocalDate.now())));
     }
     
-    public JanelaCompra(TelaInicial inicio) {
+    public JanelaCompra(TelaInicial inicio) throws ParseException {
         initComponents();
         this.setLocationRelativeTo(null);
         
@@ -82,6 +82,8 @@ public final class JanelaCompra extends javax.swing.JFrame {
                     fornList.get(i).getNomefornecedor()+")");
             }
         }
+        organizarCaixasInserir();
+        formatar();
         
         botaoConsItem.setVisible(false);
         consultaItens.setVisible(false);
@@ -248,8 +250,12 @@ public final class JanelaCompra extends javax.swing.JFrame {
             }
         });
 
+        caixaInsDataEntComp.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+
         pagComboBox.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         pagComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dinheiro", "Cartão de crédito", "Cartão de débito", "Boleto bancário", "Transferência bancária", "PIX", "Cheque" }));
+
+        caixaInsNumNfComp.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
 
         caixaInsDataComp.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         caixaInsDataComp.setText("jTextField1");
@@ -479,7 +485,7 @@ public final class JanelaCompra extends javax.swing.JFrame {
 
                 JanelaMedComprados addItens = new JanelaMedComprados(comp, "Avançar");
                 addItens.setVisible(true);
-                desselecionar();
+                ocultar();
 
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Falha em cadastrar compra(608697097): " + e);
@@ -503,17 +509,24 @@ public final class JanelaCompra extends javax.swing.JFrame {
     private void botaoAlterarCompActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAlterarCompActionPerformed
         // TODO add your handling code here:
         if (tabelaCompra.getSelectedRow() != -1 && fornList.get(fornComboBox.getSelectedIndex()).getSituacaofornecedor() != 0) {
-            model.setValueAt(converterData(caixaInsDataComp.getText()), tabelaCompra.getSelectedRow(), 1);
-            model.setValueAt(converterData(caixaInsDataEntComp.getText()), tabelaCompra.getSelectedRow(), 2);
-            model.setValueAt(caixaInsNumNfComp.getText().trim( ), tabelaCompra.getSelectedRow(), 3);
-            model.setValueAt(String.valueOf(pagComboBox.getSelectedItem()), tabelaCompra.getSelectedRow(), 5);
-            model.setValueAt(String.valueOf(fornList.get(fornComboBox.getSelectedIndex()).getCodfornecedor()), tabelaCompra.getSelectedRow(), 6);
             
-            Compra comp = model.pegaDadosLinha(tabelaCompra.getSelectedRow());
-            CompraDAO dao = new CompraDAO();
+            int alterarComp = JOptionPane.showConfirmDialog(null, "Alterar compra?","CONFIRMAR",JOptionPane.YES_NO_OPTION);
             
-            dao.atualizar(comp);
-            desselecionar();
+            if (alterarComp == 0) {
+                model.setValueAt(converterData(caixaInsDataComp.getText()), tabelaCompra.getSelectedRow(), 1);
+                model.setValueAt(converterData(caixaInsDataEntComp.getText()), tabelaCompra.getSelectedRow(), 2);
+                model.setValueAt(caixaInsNumNfComp.getText().trim( ), tabelaCompra.getSelectedRow(), 3);
+                model.setValueAt(String.valueOf(pagComboBox.getSelectedItem()), tabelaCompra.getSelectedRow(), 5);
+                model.setValueAt(String.valueOf(fornList.get(fornComboBox.getSelectedIndex()).getCodfornecedor()), tabelaCompra.getSelectedRow(), 6);
+
+                Compra comp = model.pegaDadosLinha(tabelaCompra.getSelectedRow());
+                CompraDAO dao = new CompraDAO();
+
+                dao.atualizar(comp);
+                ocultar();
+            } else if (alterarComp == 1) {
+                ocultar();
+            }            
         } else if (fornList.get(fornComboBox.getSelectedIndex()).getSituacaofornecedor() == 0) {
             JOptionPane.showMessageDialog(null, "Ative o cadastro de fornecedor em sua tela de cadastro",
                     "FORNECEDOR DESATIVADO!", NORMAL);
@@ -549,11 +562,11 @@ public final class JanelaCompra extends javax.swing.JFrame {
             }
                         
         } else {
-            desselecionar();
+            ocultar();
         }
     }//GEN-LAST:event_tabelaCompraMouseClicked
 
-    public void desselecionar(){
+    public void ocultar(){
         clique = -1;
         tabelaCompra.clearSelection();
         consultaItens.setVisible(false);
@@ -573,24 +586,35 @@ public final class JanelaCompra extends javax.swing.JFrame {
     private void botaoRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoRemoverActionPerformed
         // TODO add your handling code here:
         if (tabelaCompra.getSelectedRow() != -1) {
+            int removerCompra = JOptionPane.showConfirmDialog(null, "Remover compra?","CONFIRMAR",JOptionPane.YES_NO_OPTION);
+            if (removerCompra == 0) {
+                CompraDAO compDao = new CompraDAO();
             
-            CompraDAO compDao = new CompraDAO();
-            
-            boolean cadastro = validarEstoqueDelCompra();
-            
-            if (cadastro) {
-                Compra comp = model.pegaDadosLinha(tabelaCompra.getSelectedRow());
-                compDao.deletar(comp);
-                desselecionar();
-            } else {
-                JOptionPane.showMessageDialog(null, "Existem medicamentos com a quantidade menor do que o estoque!");
+                boolean cadastro = validarEstoqueDelCompra();
+
+                if (cadastro) {
+                    Compra comp = model.pegaDadosLinha(tabelaCompra.getSelectedRow());
+                    compDao.deletar(comp);
+                    ocultar();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Existem medicamentos com a quantidade menor do que o estoque!");
+                    ocultar();
+                }
+            } else if (removerCompra == 1) {
+                ocultar();
             }
         }
     }//GEN-LAST:event_botaoRemoverActionPerformed
 
     private void botaoLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoLimparActionPerformed
         // TODO add your handling code here:
-        limpacampos();
+        int limparCampos = JOptionPane.showConfirmDialog(null, "Limpar campos?","CONFIRMAR",JOptionPane.YES_NO_OPTION);
+        if (limparCampos == 0) {
+            limpacampos();
+            ocultar();
+        } else if(limparCampos == 1){
+            ocultar();
+        }
     }//GEN-LAST:event_botaoLimparActionPerformed
 
   
@@ -669,17 +693,7 @@ public final class JanelaCompra extends javax.swing.JFrame {
 //
 //    }
     
-    
-    
-    public void organizarCaixasInserir() throws ParseException{
-        
-//        caixaInsDataComp.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory
-//        (new javax.swing.text.MaskFormatter("##/##/####")));
-        
-        caixaInsNumNfComp.setFont(new Font("century gothic", Font.PLAIN, 12));
-        caixaInsDataEntComp.setFont(new Font("century gothic", Font.PLAIN, 12));
-        
-        
+    public void formatar(){
         JTableHeader tituloTabela = tabelaCompra.getTableHeader();
         tituloTabela.setFont(new Font("century gothic", Font.BOLD, 12));
         
@@ -687,7 +701,15 @@ public final class JanelaCompra extends javax.swing.JFrame {
         tituloTabela.getDefaultRenderer();
         centralizar.setHorizontalAlignment(JLabel.CENTER);
         
+        UIManager.put("OptionPane.cancelButtonText", "Cancelar"); 
+        UIManager.put("OptionPane.noButtonText", "Não"); 
+        UIManager.put("OptionPane.yesButtonText", "Sim");
+    }
+    
+    public void organizarCaixasInserir() throws ParseException{
         
+//        caixaInsDataComp.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory
+//        (new javax.swing.text.MaskFormatter("##/##/####")));
 
         caixaInsDataEntComp.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory
         (new javax.swing.text.MaskFormatter("##/##/####")));

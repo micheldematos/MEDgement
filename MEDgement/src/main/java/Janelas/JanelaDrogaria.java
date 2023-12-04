@@ -19,6 +19,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import org.apache.hc.core5.http.ParseException;
@@ -551,7 +552,7 @@ public final class JanelaDrogaria extends javax.swing.JFrame {
             dao.criar(d);
             model.recarregaTabela();
             limpacampos();
-            desselecionar();
+            ocultar();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Falha em efetuar cadastro: " + e);
         }
@@ -565,23 +566,30 @@ public final class JanelaDrogaria extends javax.swing.JFrame {
     private void botaoAlterarDrogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAlterarDrogActionPerformed
         // TODO add your handling code here:
         if(tabelaDrogaria.getSelectedRow() != -1){
-            model.setValueAt(caixaInsCNPJDrog.getText(), tabelaDrogaria.getSelectedRow(), 2);
-            model.setValueAt(caixaInsNomeDrog.getText(), tabelaDrogaria.getSelectedRow(), 3);
-            model.setValueAt(caixaInsRuaDrog.getText(), tabelaDrogaria.getSelectedRow(), 4);
-            model.setValueAt(caixaInsNumDrog.getText(), tabelaDrogaria.getSelectedRow(), 5);
-            model.setValueAt(caixaInsCompDrog.getText(), tabelaDrogaria.getSelectedRow(), 6);
-            model.setValueAt(caixaInsBairroDrog.getText(), tabelaDrogaria.getSelectedRow(), 7);
-            model.setValueAt(caixaInsCidDrog.getText(), tabelaDrogaria.getSelectedRow(), 8);
-            model.setValueAt(caixaInsEstDrog.getText(), tabelaDrogaria.getSelectedRow(), 9);
-            model.setValueAt(caixaInsCEPDrog.getText(), tabelaDrogaria.getSelectedRow(), 10);
+            int alterarDrogaria = JOptionPane.showConfirmDialog(null, "Alterar drogaria?","CONFIRMAR",JOptionPane.YES_NO_OPTION);
             
-            Drogaria d = model.pegaDadosLinha(tabelaDrogaria.getSelectedRow());
-            DrogariaDAO dao = new DrogariaDAO();
+            if (alterarDrogaria == 0) {
+                model.setValueAt(caixaInsCNPJDrog.getText(), tabelaDrogaria.getSelectedRow(), 2);
+                model.setValueAt(caixaInsNomeDrog.getText(), tabelaDrogaria.getSelectedRow(), 3);
+                model.setValueAt(caixaInsRuaDrog.getText(), tabelaDrogaria.getSelectedRow(), 4);
+                model.setValueAt(caixaInsNumDrog.getText(), tabelaDrogaria.getSelectedRow(), 5);
+                model.setValueAt(caixaInsCompDrog.getText(), tabelaDrogaria.getSelectedRow(), 6);
+                model.setValueAt(caixaInsBairroDrog.getText(), tabelaDrogaria.getSelectedRow(), 7);
+                model.setValueAt(caixaInsCidDrog.getText(), tabelaDrogaria.getSelectedRow(), 8);
+                model.setValueAt(caixaInsEstDrog.getText(), tabelaDrogaria.getSelectedRow(), 9);
+                model.setValueAt(caixaInsCEPDrog.getText(), tabelaDrogaria.getSelectedRow(), 10);
+
+                Drogaria d = model.pegaDadosLinha(tabelaDrogaria.getSelectedRow());
+                DrogariaDAO dao = new DrogariaDAO();
+
+                dao.atualizar(d);
+                limpacampos();
+                ocultar();
+                model.recarregaTabela();
+            } else if (alterarDrogaria == 1) {
+                ocultar();
+            }
             
-            dao.atualizar(d);
-            limpacampos();
-            desselecionar();
-            model.recarregaTabela();
         } 
     }//GEN-LAST:event_botaoAlterarDrogActionPerformed
 
@@ -618,7 +626,7 @@ public final class JanelaDrogaria extends javax.swing.JFrame {
             consultaDrogaria(d.getCoddrogaria(),d.getRuadrogaria(), d.getNumerodrogaria(),d.getBairrodrogaria(), 
                     d.getCidadedrogaria(), d.getEstadodrogaria(), d.getCepdrogaria(), d.getComplementodrogaria());
         } else{
-            desselecionar();
+            ocultar();
         }
     }//GEN-LAST:event_tabelaDrogariaMouseClicked
 
@@ -642,7 +650,13 @@ public final class JanelaDrogaria extends javax.swing.JFrame {
     
     private void botaoLimpar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoLimpar3ActionPerformed
         // TODO add your handling code here:
-        limpacampos();
+        int limparCampos = JOptionPane.showConfirmDialog(null, "Limpar campos?","CONFIRMAR",JOptionPane.YES_NO_OPTION);
+        if (limparCampos == 0) {
+            limpacampos();
+            ocultar();
+        } else if (limparCampos == 1){
+            ocultar();
+        }        
     }//GEN-LAST:event_botaoLimpar3ActionPerformed
 
     private void botaoInativarDrogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoInativarDrogActionPerformed
@@ -650,15 +664,25 @@ public final class JanelaDrogaria extends javax.swing.JFrame {
         Drogaria d = model.pegaDadosLinha(tabelaDrogaria.getSelectedRow());
         
         if ("Inativar".equals(botaoInativarDrog.getText())) {
-            DrogariaDAO dao = new DrogariaDAO();
-            dao.inativar(d);
-            limpacampos();
-            desselecionar();
+            int inativarDrog = JOptionPane.showConfirmDialog(null, "Inativar drogaria?","CONFIRMAR",JOptionPane.YES_NO_OPTION);
+            if (inativarDrog == 0) {
+                DrogariaDAO dao = new DrogariaDAO();
+                dao.inativar(d);
+                limpacampos();
+                ocultar();
+            } else if (inativarDrog == 1) {
+                ocultar();
+            }
         } else {
-            DrogariaDAO dao = new DrogariaDAO();
-            dao.ativar(d);
-            limpacampos();
-            desselecionar();
+            int ativarDrog = JOptionPane.showConfirmDialog(null, "Ativar drogaria?","CONFIRMAR",JOptionPane.YES_NO_OPTION);
+            if (ativarDrog == 0) {
+                DrogariaDAO dao = new DrogariaDAO();
+                dao.ativar(d);
+                limpacampos();
+                ocultar();
+            } else if (ativarDrog == 1) {
+                ocultar();
+            }            
         }
     }//GEN-LAST:event_botaoInativarDrogActionPerformed
 
@@ -714,7 +738,7 @@ public final class JanelaDrogaria extends javax.swing.JFrame {
         this.setCursor(Cursor.DEFAULT_CURSOR);
     }//GEN-LAST:event_botaoVoltarMouseExited
     
-    public void desselecionar(){
+    public void ocultar(){
         clique = -1;
         tabelaDrogaria.clearSelection();
         botaoInativarDrog.setVisible(false);
@@ -729,6 +753,10 @@ public final class JanelaDrogaria extends javax.swing.JFrame {
                 tabelaTitulo.getDefaultRenderer();
         centralizar.setHorizontalAlignment(JLabel.CENTER);
         centralizar.setVerticalAlignment(JLabel.CENTER);
+        
+        UIManager.put("OptionPane.cancelButtonText", "Cancelar"); 
+        UIManager.put("OptionPane.noButtonText", "Não"); 
+        UIManager.put("OptionPane.yesButtonText", "Sim");
     }
     
     public void organizarCaixasInserir() throws java.text.ParseException{
@@ -794,7 +822,7 @@ public final class JanelaDrogaria extends javax.swing.JFrame {
         caixaInsEstDrog.setText("");
         caixaInsCEPDrog.setText("");
         
-        desselecionar();
+        ocultar();
         caixaInsNomeDrog.requestFocus();
     }
 
