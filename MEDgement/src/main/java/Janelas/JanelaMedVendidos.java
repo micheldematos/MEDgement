@@ -49,8 +49,13 @@ public final class JanelaMedVendidos extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         
         for (int i = 0; i < medList.size(); i++) {
-            MedComboBox.addItem(String.valueOf((medList.get(i).getCodmedicamento())) + " - " + 
+            if (medList.get(i).getSituacaomed() == 1) {
+                MedComboBox.addItem(String.valueOf((medList.get(i).getCodmedicamento())) + " - " + 
                     medList.get(i).getNomemedicamento() + " (" + medList.get(i).getQuantidadeestoque() + " unidades)");
+            } else if (medList.get(i).getSituacaomed() == 0) {
+                MedComboBox.addItem(String.valueOf("INATIVADO ("+(medList.get(i).getCodmedicamento())) + " - " + 
+                    medList.get(i).getNomemedicamento() + " [" + medList.get(i).getQuantidadeestoque() + " unidades])");
+            }            
         }
         
         caixaValorTotal.setVisible(false);
@@ -65,8 +70,13 @@ public final class JanelaMedVendidos extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         
         for (int i = 0; i < medList.size(); i++) {
-            MedComboBox.addItem(String.valueOf((medList.get(i).getCodmedicamento())) + " - " + 
+            if (medList.get(i).getSituacaomed() == 1) {
+                MedComboBox.addItem(String.valueOf((medList.get(i).getCodmedicamento())) + " - " + 
                     medList.get(i).getNomemedicamento() + " (" + medList.get(i).getQuantidadeestoque() + " unidades)");
+            } else if (medList.get(i).getSituacaomed() == 0) {
+                MedComboBox.addItem(String.valueOf("INATIVADO ("+(medList.get(i).getCodmedicamento())) + " - " + 
+                    medList.get(i).getNomemedicamento() + " [" + medList.get(i).getQuantidadeestoque() + " unidades])");
+            }            
         }
         
         String botaoPress = "Avançar";
@@ -372,7 +382,7 @@ public final class JanelaMedVendidos extends javax.swing.JFrame {
 
     private void botaoAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAddActionPerformed
         // TODO add your handling code here:
-        if (MedComboBox.getSelectedIndex() != -1) {
+        if (MedComboBox.getSelectedIndex() != -1 && medList.get(MedComboBox.getSelectedIndex()).getSituacaomed() == 1) {
             boolean  medcadastrado = false;
         
             int qntdVendida = Integer.parseInt(caixaInsQntdMed.getText());
@@ -403,6 +413,8 @@ public final class JanelaMedVendidos extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Quantidade insuficiente!");
             }
+        } else if (medList.get(MedComboBox.getSelectedIndex()).getSituacaomed() == 0) {
+            JOptionPane.showMessageDialog(null, "Ativar cadastro de medicamento!", "MEDICAMENTO INATIVADO", NORMAL);
         }
     }//GEN-LAST:event_botaoAddActionPerformed
 
@@ -447,38 +459,41 @@ public final class JanelaMedVendidos extends javax.swing.JFrame {
 
     private void botaoAltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAltActionPerformed
         // TODO add your handling code here:
-        int alterarItem = JOptionPane.showConfirmDialog(null, "Alterar item?","CONFIRMAR",JOptionPane.YES_NO_OPTION);
+        if (TabMedVend.getSelectedRow() != -1 && medList.get(MedComboBox.getSelectedIndex()).getSituacaomed() == 1) {
+            int alterarItem = JOptionPane.showConfirmDialog(null, "Alterar item?","CONFIRMAR",JOptionPane.YES_NO_OPTION);
         
-        if (alterarItem == 0) {
-            boolean medCadastrado = false;
-        
-            if (TabMedVend.getSelectedRow() != -1) {
-                for (int i = 0; i < TabMedVend.getRowCount(); i++) {
-                    int codmed = medList.get(MedComboBox.getSelectedIndex()).getCodmedicamento();
-                    int codMedAdd = Integer.parseInt(String.valueOf(TabMedVend.getValueAt(i, 4)));
-                    int codMedSel = Integer.parseInt(String.valueOf(TabMedVend.getValueAt(TabMedVend.getSelectedRow(), 4)));
+            if (alterarItem == 0) {
+                boolean medCadastrado = false;
 
-                    if (codmed == codMedAdd) {
-                        medCadastrado = true;
-                        if (codmed == codMedSel) {
-                            medCadastrado = false;
+                if (TabMedVend.getSelectedRow() != -1) {
+                    for (int i = 0; i < TabMedVend.getRowCount(); i++) {
+                        int codmed = medList.get(MedComboBox.getSelectedIndex()).getCodmedicamento();
+                        int codMedAdd = Integer.parseInt(String.valueOf(TabMedVend.getValueAt(i, 4)));
+                        int codMedSel = Integer.parseInt(String.valueOf(TabMedVend.getValueAt(TabMedVend.getSelectedRow(), 4)));
+
+                        if (codmed == codMedAdd) {
+                            medCadastrado = true;
+                            if (codmed == codMedSel) {
+                                medCadastrado = false;
+                            }
                         }
                     }
                 }
-            }
 
-            String botaoPress = botaoCadastrarVenda.getText();
+                String botaoPress = botaoCadastrarVenda.getText();
 
-            if (medCadastrado) {
-                JOptionPane.showMessageDialog(null, "Medicamento já cadastrado!");
-            } else {
-                attItens(botaoPress);
-                calcularTotal();
+                if (medCadastrado) {
+                    JOptionPane.showMessageDialog(null, "Medicamento já cadastrado!");
+                } else {
+                    attItens(botaoPress);
+                    calcularTotal();
+                }
+            } else if (alterarItem == 1) {
+                ocultar();
             }
-        } else if (alterarItem == 1) {
-            ocultar();
+            } else if (medList.get(MedComboBox.getSelectedIndex()).getSituacaomed() == 0) {
+                JOptionPane.showMessageDialog(null, "Ativar cadastro de medicamento!", "MEDICAMENTO INATIVADO", NORMAL);
         }
-        
     }//GEN-LAST:event_botaoAltActionPerformed
 
     private void botaoCadastrarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarVendaActionPerformed
