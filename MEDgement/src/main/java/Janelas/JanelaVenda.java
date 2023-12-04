@@ -478,12 +478,12 @@ public final class JanelaVenda extends javax.swing.JFrame {
                 v.setDatavenda(converterData(caixaInsDataVend.getText()));
                 v.setFormapagamentovenda(String.valueOf(pagComboBox.getSelectedItem()));
                 v.setCoddrogaria(drogList.get(DrogComboBox.getSelectedIndex()).getCoddrogaria());
-
+                
+                ocultar();
+                limpacampos();
+                
                 JanelaMedVendidos addItens = new JanelaMedVendidos(v, "Avançar");
                 addItens.setVisible(true);
-                tabelaVenda.clearSelection();
-                clique = -1;
-                ocultar();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Falha em adicionar itens (1234556): " + e);
             }
@@ -521,6 +521,7 @@ public final class JanelaVenda extends javax.swing.JFrame {
                 tabelaVenda.clearSelection();
                 clique = -1;
                 ocultar();
+                limpacampos();
 //
 //                
 //                Venda v = model.pegaDadosLinha(tabelaVenda.getSelectedRow());
@@ -618,8 +619,6 @@ public final class JanelaVenda extends javax.swing.JFrame {
                 if (v.getEmissaoNf() == 0) {
                     dao.deletar(v);
                     model.recarregaTabela();
-                    tabelaVenda.clearSelection();
-                    clique = -1;
                     ocultar();
                 } else{
                     JOptionPane.showMessageDialog(null, "Não é possível apagar o pedido!", "EMITIDO NOTA FISCAL",0);
@@ -637,6 +636,9 @@ public final class JanelaVenda extends javax.swing.JFrame {
         
         if (limpar == 0) {
             limpacampos();
+            ocultar();
+        } else if (limpar == 1) {
+            ocultar();
         }
         
     }//GEN-LAST:event_botaoLimparActionPerformed
@@ -662,12 +664,10 @@ public final class JanelaVenda extends javax.swing.JFrame {
             vend.setValorpedidovenda(vendM.getValorpedidovenda());
             vend.setCoddrogaria(vendM.getCoddrogaria());
             
+            ocultar();
+            
             JanelaMedVendidos addItens = new JanelaMedVendidos(vend, botaoConsItens.getText());
             addItens.setVisible(true);
-            
-            clique = -1;
-            tabelaVenda.clearSelection();
-            ocultar();
         }
     }//GEN-LAST:event_botaoConsItensActionPerformed
 
@@ -794,6 +794,7 @@ public final class JanelaVenda extends javax.swing.JFrame {
         botaoConsItens.setVisible(false);
         
         clique = -1;
+        tabelaVenda.clearSelection();
     }
     
     public String converterData(String dataDigitada){
@@ -862,8 +863,6 @@ public final class JanelaVenda extends javax.swing.JFrame {
     }
     
     public void limpacampos(){
-        caixaInsDataVend.setText("");
-        
         caixaInsDataVend.requestFocus();
     }
 

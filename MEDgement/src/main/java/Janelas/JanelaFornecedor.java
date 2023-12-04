@@ -571,6 +571,7 @@ public final class JanelaFornecedor extends javax.swing.JFrame {
             dao.criar(f);
             model.recarregaTabela();
             limpaCampos();
+            ocultar();
             
         } catch (Exception e) {
             System.out.println("Erro: " + e);

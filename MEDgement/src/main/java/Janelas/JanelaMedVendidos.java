@@ -398,6 +398,7 @@ public final class JanelaMedVendidos extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Medicamento já cadastrado!");
                 } else {
                     addItens(botaoPress);
+                    ocultar();
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Quantidade insuficiente!");
@@ -433,6 +434,7 @@ public final class JanelaMedVendidos extends javax.swing.JFrame {
                         v.setValorpedidovenda(valorTotal);
 
                         vendDao.atualizarValor(v);
+                        ocultar();
                     }
                 }
             }

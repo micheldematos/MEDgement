@@ -413,6 +413,7 @@ public final class JanelaMedComprados extends javax.swing.JFrame {
                 if (compDao.addItensComp(comp, medComprados)) {
                     System.out.println("Cadastro feito com sucesso querida!!");
                     this.dispose();
+                    ocultar();
                 } else {
                     compDao.deletar(comp);
                 }
@@ -529,6 +530,7 @@ public final class JanelaMedComprados extends javax.swing.JFrame {
             } else {
                 attItens(botaoPress);
                 calcularTotal();
+                ocultar();
             }
         }else if (alterarItem == 1) {
             ocultar();
@@ -571,6 +573,7 @@ public final class JanelaMedComprados extends javax.swing.JFrame {
                                 comp.setValorNFCompra(valorTotal);
 
                                 compDao.atualizarValor(comp);
+                                ocultar();
                             }
                         } else {
                             JOptionPane.showMessageDialog(null, "Estoque insuficiente para deletar compra!");

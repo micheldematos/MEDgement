@@ -415,6 +415,7 @@ public final class JanelaUsuario extends javax.swing.JFrame {
             dao.criar(u);
             model.recarregaTabela();
             limpacampos();
+            ocultar();
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Falha em cadastrar usuário (684987654): " + e);
         }
@@ -456,6 +457,7 @@ public final class JanelaUsuario extends javax.swing.JFrame {
                 dao.atualizar(u);
                 model.recarregaTabela();
                 limpacampos();
+                ocultar();
             } else if(alterarUser == 1){
                 ocultar();
             }

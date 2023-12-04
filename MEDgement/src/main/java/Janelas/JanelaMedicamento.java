@@ -478,6 +478,7 @@ public final class JanelaMedicamento extends javax.swing.JFrame {
             dao.criar(med);
             model.recarregaTabela();
             limpacampos();
+            ocultar();
             
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Falha no cadastro de medicamento: " + e);
@@ -505,6 +506,7 @@ public final class JanelaMedicamento extends javax.swing.JFrame {
 
                 dao.atualizar(med);
                 limpacampos();
+                ocultar();
                 model.recarregaTabela();
             } else if (alterarMed == 1){
                 ocultar();

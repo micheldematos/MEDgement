@@ -661,6 +661,8 @@ public final class JanelaCompra extends javax.swing.JFrame {
             comp.setValorNFCompra(compM.getValorNFCompra());
             comp.setFormaPagamentoCompra(compM.getFormaPagamentoCompra());
             comp.setCodFornecedor(compM.getCodFornecedor());
+            
+            ocultar();
 
             JanelaMedComprados addItens = new JanelaMedComprados(comp, null);
             addItens.setVisible(true);
