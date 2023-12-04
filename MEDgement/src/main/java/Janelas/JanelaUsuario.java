@@ -17,6 +17,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 
@@ -33,6 +34,8 @@ public final class JanelaUsuario extends javax.swing.JFrame {
     TelaInicial inicio;
     
     UsuarioTableModel model = new UsuarioTableModel();
+    
+    int clique = -1;
     
     public JanelaUsuario() throws ParseException, ParseException {
         initComponents();
@@ -430,23 +433,32 @@ public final class JanelaUsuario extends javax.swing.JFrame {
                 tituloTabela.getDefaultRenderer();
         centralizar.setHorizontalAlignment(JLabel.CENTER);
         centralizar.setVerticalAlignment(JLabel.CENTER);
+        
+        UIManager.put("OptionPane.cancelButtonText", "Cancelar"); 
+        UIManager.put("OptionPane.noButtonText", "Não"); 
+        UIManager.put("OptionPane.yesButtonText", "Sim");
     }
     
     private void botaoAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAlterarActionPerformed
         // TODO add your handling code here:
         if (tabelaUsuario.getSelectedRow() != -1) {
-            model.setValueAt(caixaInsSenha.getText(), tabelaUsuario.getSelectedRow(), 1);
-            model.setValueAt(caixaInsNome.getText(), tabelaUsuario.getSelectedRow(), 2);
-            model.setValueAt(caixaInsCpf.getText(), tabelaUsuario.getSelectedRow(), 3);
-            model.setValueAt(tipoUser(), tabelaUsuario.getSelectedRow(), 4);
-            model.setValueAt(caixaInsCargo.getText(), tabelaUsuario.getSelectedRow(), 6);
-            
-            Usuario u = model.pegaDadosLinha(tabelaUsuario.getSelectedRow());
-            UsuarioDAO dao = new UsuarioDAO();
-            
-            dao.atualizar(u);
-            model.recarregaTabela();
-            limpacampos();
+            int alterarUser = JOptionPane.showConfirmDialog(null, "Alterar usuário?", "CONFIRMAR", JOptionPane.YES_NO_OPTION);
+            if (alterarUser == 0) {
+                model.setValueAt(caixaInsSenha.getText(), tabelaUsuario.getSelectedRow(), 1);
+                model.setValueAt(caixaInsNome.getText(), tabelaUsuario.getSelectedRow(), 2);
+                model.setValueAt(caixaInsCpf.getText(), tabelaUsuario.getSelectedRow(), 3);
+                model.setValueAt(tipoUser(), tabelaUsuario.getSelectedRow(), 4);
+                model.setValueAt(caixaInsCargo.getText(), tabelaUsuario.getSelectedRow(), 6);
+
+                Usuario u = model.pegaDadosLinha(tabelaUsuario.getSelectedRow());
+                UsuarioDAO dao = new UsuarioDAO();
+
+                dao.atualizar(u);
+                model.recarregaTabela();
+                limpacampos();
+            } else if(alterarUser == 1){
+                ocultar();
+            }
         }
     }//GEN-LAST:event_botaoAlterarActionPerformed
 
@@ -465,9 +477,10 @@ public final class JanelaUsuario extends javax.swing.JFrame {
     
     private void tabelaUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaUsuarioMouseClicked
         // TODO add your handling code here:
-        if (tabelaUsuario.getSelectedRow() != -1) {
+        if (tabelaUsuario.getSelectedRow() != -1 && tabelaUsuario.getSelectedRow() != clique) {
             Usuario u = model.pegaDadosLinha(tabelaUsuario.getSelectedRow());
             botaoInativar.setVisible(true);
+            clique = tabelaUsuario.getSelectedRow();
         
             caixaInsSenha.setText(u.getSenhausuario());
             caixaInsNome.setText(u.getNomecompleto());
@@ -491,6 +504,8 @@ public final class JanelaUsuario extends javax.swing.JFrame {
             
         consultaUsuario(u.getCodusuario(), u.getSenhausuario(), 
                 u.getTipousuario(), u.getCargo());
+        } else{
+            ocultar();
         }
     }//GEN-LAST:event_tabelaUsuarioMouseClicked
 
@@ -503,25 +518,55 @@ public final class JanelaUsuario extends javax.swing.JFrame {
             consultaCod.setText(String.valueOf(cod));
     }
     
+    public void exibir(){
+        consultaItens.setVisible(true);
+        botaoInativar.setVisible(true);
+    }
+    
+    public void ocultar(){
+        tabelaUsuario.clearSelection();
+        consultaItens.setVisible(false);
+        botaoInativar.setVisible(false);
+        clique = -1;
+    }
+    
     private void botaoInativarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoInativarActionPerformed
         // TODO add your handling code here:
         Usuario u = model.pegaDadosLinha(tabelaUsuario.getSelectedRow());
         
-        if (botaoInativar.getText() == "Inativar") {
-            UsuarioDAO dao = new UsuarioDAO();
-            dao.inativar(u);
-            limpacampos();
-            
+        if ("Inativar".equals(botaoInativar.getText())) {
+            int inativarUser = JOptionPane.showConfirmDialog(null, "Inativar usuário", "CONFIRMAR", JOptionPane.YES_NO_OPTION);
+            if (inativarUser == 0) {
+                UsuarioDAO dao = new UsuarioDAO();
+                dao.inativar(u);
+                limpacampos();
+                ocultar();
+            } else if(inativarUser == 1){
+                ocultar();
+            }
         } else {
-            UsuarioDAO dao = new UsuarioDAO();
-            dao.ativar(u);
-            limpacampos();
+            int ativarUser = JOptionPane.showConfirmDialog(null, "Ativar usuário?", "CONFIRMAR", JOptionPane.YES_NO_OPTION);
+            
+            if (ativarUser == 0) {
+                UsuarioDAO dao = new UsuarioDAO();
+                dao.ativar(u);
+                limpacampos();
+                ocultar();
+            } else if (ativarUser == 1){
+                ocultar();
+            }
         }
     }//GEN-LAST:event_botaoInativarActionPerformed
 
     private void botaoLimpar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoLimpar1ActionPerformed
         // TODO add your handling code here:
-        limpacampos();
+        int limparCampos = JOptionPane.showConfirmDialog(null, "Limpar campos?", "CONFIRMAR", JOptionPane.YES_NO_OPTION);
+        if (limparCampos == 0) {
+            limpacampos();
+            ocultar();
+        } else if (limparCampos == 1){
+            ocultar();
+        }
     }//GEN-LAST:event_botaoLimpar1ActionPerformed
 
     private void caixaInsPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_caixaInsPesquisarKeyReleased
