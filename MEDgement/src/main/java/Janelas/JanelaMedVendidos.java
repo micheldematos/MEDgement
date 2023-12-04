@@ -407,60 +407,76 @@ public final class JanelaMedVendidos extends javax.swing.JFrame {
 
     private void botaoDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoDelActionPerformed
         // TODO add your handling code here:
-        String botaoPress = botaoCadastrarVenda.getText();
         
-        if (botaoPress.equals(" Finalizar Venda")) {
-            if (TabMedVend.getSelectedRow() != -1) {
-            model.removeLinha(TabMedVend.getSelectedRow());
-            calcularTotal();
-            }
-        } else {
-            if (TabMedVend.getSelectedRow() != -1) {
-                MedVendidosDAO medVendDao = new MedVendidosDAO();
-                MedVendidos medVend = new MedVendidos();
-                
-                medVend.setCodmedicamento(Integer.parseInt(String.valueOf(TabMedVend.getValueAt(TabMedVend.getSelectedRow(), 4))));
-                
-                boolean cadastro = medVendDao.remover(medVend, v);
-                model.recarregaTabelaPesq(String.valueOf(v.getCodpedido()));
-                
-                if (cadastro) {
-                    double valorTotal = calcularTotal();
-                    v.setValorpedidovenda(valorTotal);
-                    
-                    vendDao.atualizarValor(v);
+        int removerItem = JOptionPane.showConfirmDialog(null, "Remover item?","CONFIRMAR",JOptionPane.YES_NO_OPTION);
+        
+        if (removerItem == 0) {
+            String botaoPress = botaoCadastrarVenda.getText();
+        
+            if (botaoPress.equals(" Finalizar Venda")) {
+                if (TabMedVend.getSelectedRow() != -1) {
+                model.removeLinha(TabMedVend.getSelectedRow());
+                calcularTotal();
+                }
+            } else {
+                if (TabMedVend.getSelectedRow() != -1) {
+                    MedVendidosDAO medVendDao = new MedVendidosDAO();
+                    MedVendidos medVend = new MedVendidos();
+
+                    medVend.setCodmedicamento(Integer.parseInt(String.valueOf(TabMedVend.getValueAt(TabMedVend.getSelectedRow(), 4))));
+
+                    boolean cadastro = medVendDao.remover(medVend, v);
+                    model.recarregaTabelaPesq(String.valueOf(v.getCodpedido()));
+
+                    if (cadastro) {
+                        double valorTotal = calcularTotal();
+                        v.setValorpedidovenda(valorTotal);
+
+                        vendDao.atualizarValor(v);
+                    }
                 }
             }
+        } else if (removerItem == 1) {
+            ocultar();
         }
+        
+        
     }//GEN-LAST:event_botaoDelActionPerformed
 
     private void botaoAltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAltActionPerformed
         // TODO add your handling code here:
-        boolean medCadastrado = false;
+        int alterarItem = JOptionPane.showConfirmDialog(null, "Alterar item?","CONFIRMAR",JOptionPane.YES_NO_OPTION);
         
-        if (TabMedVend.getSelectedRow() != -1) {
-            for (int i = 0; i < TabMedVend.getRowCount(); i++) {
-                int codmed = medList.get(MedComboBox.getSelectedIndex()).getCodmedicamento();
-                int codMedAdd = Integer.parseInt(String.valueOf(TabMedVend.getValueAt(i, 4)));
-                int codMedSel = Integer.parseInt(String.valueOf(TabMedVend.getValueAt(TabMedVend.getSelectedRow(), 4)));
-                
-                if (codmed == codMedAdd) {
-                    medCadastrado = true;
-                    if (codmed == codMedSel) {
-                        medCadastrado = false;
+        if (alterarItem == 0) {
+            boolean medCadastrado = false;
+        
+            if (TabMedVend.getSelectedRow() != -1) {
+                for (int i = 0; i < TabMedVend.getRowCount(); i++) {
+                    int codmed = medList.get(MedComboBox.getSelectedIndex()).getCodmedicamento();
+                    int codMedAdd = Integer.parseInt(String.valueOf(TabMedVend.getValueAt(i, 4)));
+                    int codMedSel = Integer.parseInt(String.valueOf(TabMedVend.getValueAt(TabMedVend.getSelectedRow(), 4)));
+
+                    if (codmed == codMedAdd) {
+                        medCadastrado = true;
+                        if (codmed == codMedSel) {
+                            medCadastrado = false;
+                        }
                     }
                 }
             }
+
+            String botaoPress = botaoCadastrarVenda.getText();
+
+            if (medCadastrado) {
+                JOptionPane.showMessageDialog(null, "Medicamento já cadastrado!");
+            } else {
+                attItens(botaoPress);
+                calcularTotal();
+            }
+        } else if (alterarItem == 1) {
+            ocultar();
         }
         
-        String botaoPress = botaoCadastrarVenda.getText();
-        
-        if (medCadastrado) {
-            JOptionPane.showMessageDialog(null, "Medicamento já cadastrado!");
-        } else {
-            attItens(botaoPress);
-            calcularTotal();
-        }
     }//GEN-LAST:event_botaoAltActionPerformed
 
     private void botaoCadastrarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarVendaActionPerformed
@@ -517,8 +533,7 @@ public final class JanelaMedVendidos extends javax.swing.JFrame {
                 }
             }
         } else {
-            clique = -1;
-            TabMedVend.clearSelection();
+            ocultar();
         }
     }//GEN-LAST:event_TabMedVendMouseClicked
 
@@ -530,6 +545,11 @@ public final class JanelaMedVendidos extends javax.swing.JFrame {
         tituloTabela.getDefaultRenderer();
         
         centralizar.setHorizontalAlignment(JLabel.CENTER);
+    }
+    
+    public void ocultar(){
+        clique = -1;
+        TabMedVend.clearSelection();
     }
     
     private void botaoVoltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoVoltarMouseClicked
