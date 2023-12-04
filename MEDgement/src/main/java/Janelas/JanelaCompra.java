@@ -11,7 +11,6 @@ import javax.swing.JOptionPane;
 import DAO.FornecedorDAO;
 import DAO.MedicamentoDAO;
 import Objetos.MedComprados;
-import Regex.ValidacaoRegex;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.text.ParseException;
@@ -541,8 +540,6 @@ public final class JanelaCompra extends javax.swing.JFrame {
             consultaCompra(comp.getCodCompra(), desconverterData(comp.getDataEntregaCompra()),
                     comp.getFormaPagamentoCompra(), comp.getCodFornecedor(), nomeForn);
             
-            
-
             caixaInsDataComp.setText(desconverterData(comp.getDataCompra()));
             caixaInsDataEntComp.setText(desconverterData(comp.getDataEntregaCompra()));
             caixaInsNumNfComp.setText(String.valueOf(comp.getNumeroNFCompra()));
@@ -552,8 +549,7 @@ public final class JanelaCompra extends javax.swing.JFrame {
                 if ((fornList.get(i).getCodfornecedor()) == comp.getCodFornecedor()) {
                     fornComboBox.setSelectedIndex(i);
                 }
-            }
-                        
+            }  
         } else {
             ocultar();
         }
@@ -678,16 +674,6 @@ public final class JanelaCompra extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_botaoVoltarMouseClicked
 
-    
-//    public class JTextFieldArialBold8 extends JTextField {
-//
-//    public JTextFieldArialBold8() {
-//    super();
-//    this.setFont( new Font( “arial”, Font.BOLD, 8 ) );
-//    }
-//
-//    }
-    
     public void formatar(){
         JTableHeader tituloTabela = tabelaCompra.getTableHeader();
         tituloTabela.setFont(new Font("century gothic", Font.BOLD, 12));
@@ -702,15 +688,8 @@ public final class JanelaCompra extends javax.swing.JFrame {
     }
     
     public void organizarCaixasInserir() throws ParseException{
-        
-//        caixaInsDataComp.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory
-//        (new javax.swing.text.MaskFormatter("##/##/####")));
-
         caixaInsDataEntComp.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory
         (new javax.swing.text.MaskFormatter("##/##/####")));
-        
-        caixaInsNumNfComp.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory
-        (new javax.swing.text.MaskFormatter("#########")));
     }
     
     public String converterData(String dataDigitada){
@@ -739,28 +718,14 @@ public final class JanelaCompra extends javax.swing.JFrame {
         return dataFormatada;
     }
     
-    public void validarDadosCampos(){
-        ValidacaoRegex valReg = new ValidacaoRegex();
-        System.out.println(valReg.validarData("02/03/2001"));
-        
-        
-        
-//        if (valReg.validarData(caixaInsDataComp.getText())) {
-//            System.out.println("");
-//        }
-        
-//        if (!(valReg.validarData(caixaInsDataEntComp.getText()))) {
-//            validarCampos = false;
-//            System.out.println("Data entrega inválida");
-//        }
-//        
-//        if (!(valReg.validarNumNf(caixaInsNumNfComp.getText().trim( )))) {
-//            validarCampos = false;
-//            System.out.println("NF inválida");
-//        }
-        
+    public void limpacampos(){
+        caixaInsDataComp.setText("");
+        caixaInsDataEntComp.setText("");
+        caixaInsNumNfComp.setText("");
+        caixaInsNumNfComp.requestFocus();
+        tabelaCompra.clearSelection();
     }
-    
+        
     /**
      * @param args the command line arguments
      */
@@ -798,15 +763,6 @@ public final class JanelaCompra extends javax.swing.JFrame {
                 }
             }
         });
-    }
-    
-    public void limpacampos(){
-        caixaInsDataComp.setText("");
-        caixaInsDataEntComp.setText("");
-        caixaInsNumNfComp.setText("");
-        caixaInsNumNfComp.requestFocus();
-        
-        tabelaCompra.clearSelection();
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

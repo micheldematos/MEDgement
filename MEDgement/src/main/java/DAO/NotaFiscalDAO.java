@@ -76,7 +76,7 @@ public class NotaFiscalDAO {
             stmt.setInt(1, nf.getEmissaoNf());
             
             stmt.execute();
-            JOptionPane.showMessageDialog(null, "Nota fiscal cancelada com sucesso!");
+            JOptionPane.showMessageDialog(null, "Nota fiscal cancelada com sucesso!", "CONCLUÍDO", JOptionPane.NO_OPTION);
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "080620231400 - Falha ao cancelar nota fiscal: " + e);
         } finally {
@@ -93,7 +93,7 @@ public class NotaFiscalDAO {
             stmt.setInt(1, nf.getNumeronf());
             
             stmt.execute();
-            JOptionPane.showMessageDialog(null, "Nota fiscal cancelada com sucesso!");
+            JOptionPane.showMessageDialog(null, "Nota fiscal cancelada com sucesso!", "CONCLUÍDO", JOptionPane.NO_OPTION);
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "080620231400 - Falha ao cancelar nota fiscal: " + e);
         } finally {

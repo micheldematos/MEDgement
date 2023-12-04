@@ -142,7 +142,8 @@ public class FornecedorDAO {
             stmt.setString(11, f.getCepfornecedor());
             
             stmt.execute();
-            JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
+            
+            JOptionPane.showMessageDialog(null, "Fornecedor cadastrado com sucesso","CONCLUÍDO", JOptionPane.NO_OPTION);
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar fornecedor: " + e);
         } finally {
@@ -180,7 +181,8 @@ public class FornecedorDAO {
             stmt.setInt(11, f.getCodfornecedor());
             
             stmt.execute();
-            JOptionPane.showMessageDialog(null, "Fornecedor atualizado com sucesso!");
+            
+            JOptionPane.showMessageDialog(null, "Fornecedor atualizado com sucesso","CONCLUÍDO", JOptionPane.NO_OPTION);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Falha ao atualizar " + e);
         } finally{
@@ -197,7 +199,7 @@ public class FornecedorDAO {
             stmt.setInt(1, f.getCodfornecedor());
             
             stmt.execute();
-            JOptionPane.showMessageDialog(null, "Fornecedor inativado com sucesso!");
+            JOptionPane.showMessageDialog(null, "Fornecedor inativado com sucesso","CONCLUÍDO", JOptionPane.NO_OPTION);
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Falha em inativar fornecedor (225669770): " + e);
         } finally {
@@ -214,7 +216,7 @@ public class FornecedorDAO {
             stmt.setInt(1, f.getCodfornecedor());
             
             stmt.execute();
-            JOptionPane.showMessageDialog(null, "Fornecedor ativado com sucesso!");
+            JOptionPane.showMessageDialog(null, "Fornecedor ativado com sucesso","CONCLUÍDO", JOptionPane.NO_OPTION);
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Falha em ativar fornecedor (225669770): " + e);
         } finally {

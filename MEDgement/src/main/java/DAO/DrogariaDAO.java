@@ -141,7 +141,8 @@ public class DrogariaDAO {
             stmt.setString(10, d.getCepdrogaria());
             
             stmt.execute();
-            JOptionPane.showMessageDialog(null, "Cadastro de drogaria efetuado com sucesso!");
+            
+            JOptionPane.showMessageDialog(null, "Cadastro de drogaria efetuado com sucesso!", "CONCLUÍDO", JOptionPane.NO_OPTION);
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Falha em cadastrar medicamento: " + e);
         } finally {
@@ -178,7 +179,7 @@ public class DrogariaDAO {
             stmt.setInt(10, d.getCoddrogaria());
             
             stmt.execute();
-            JOptionPane.showMessageDialog(null, "Medicamento atualizado com sucesso!");
+            JOptionPane.showMessageDialog(null, "Drogaria atualizada com sucesso!", "CONCLUÍDO", JOptionPane.NO_OPTION);
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Falha em atualizar medicamento: " + e);
         } finally{
@@ -195,7 +196,7 @@ public class DrogariaDAO {
             stmt.setInt(1, d.getCoddrogaria());
             
             stmt.execute();
-            JOptionPane.showMessageDialog(null, "Drogaria inativada com sucesso!");
+            JOptionPane.showMessageDialog(null, "Drogaria inativada com sucesso!", "CONCLUÍDO", JOptionPane.NO_OPTION);
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Falha em inativar drogaria (99547748116): " + e);
         } finally {
@@ -212,7 +213,7 @@ public class DrogariaDAO {
             stmt.setInt(1, d.getCoddrogaria());
             
             stmt.execute();
-            JOptionPane.showMessageDialog(null, "Drogaria ativada com sucesso!");
+            JOptionPane.showMessageDialog(null, "Drogaria ativada com sucesso!", "CONCLUÍDO", JOptionPane.NO_OPTION);
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Falha em ativar drogaria (99547748116): " + e);
         } finally {

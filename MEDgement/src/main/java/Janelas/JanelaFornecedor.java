@@ -574,7 +574,7 @@ public final class JanelaFornecedor extends javax.swing.JFrame {
             ocultar();
             
         } catch (Exception e) {
-            System.out.println("Erro: " + e);
+            JOptionPane.showMessageDialog(null, "Erro: " + e, "ERRO", HEIGHT);
         }
     }//GEN-LAST:event_botaoCadastrarFornActionPerformed
 

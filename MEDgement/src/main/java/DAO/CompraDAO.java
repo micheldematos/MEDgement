@@ -159,7 +159,7 @@ public class CompraDAO {
             
             comp.setCodCompra(rs.getInt(1));
             
-            JOptionPane.showMessageDialog(null, "Compra cadastrada com sucesso!");
+            JOptionPane.showMessageDialog(null, "Compra efetuada com sucesso", "CONCLUÍDO",JOptionPane.NO_OPTION);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Falha em cadastrar compra(68707894): " + e);
         } finally {
@@ -189,9 +189,7 @@ public class CompraDAO {
                 
                 medDao.adicionarDataComp(medComprados.get(i).getCodmedicamento());
             }
-            
             addItens = true;
-            JOptionPane.showMessageDialog(null, "Itens adicionados com sucesso!");
             
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Falha em adicionar item na compra: " + e);
@@ -231,7 +229,7 @@ public class CompraDAO {
                 medDao.adicionarDataComp(medicamentos.get(i).getCodmedicamento());
             }
             
-            JOptionPane.showMessageDialog(null, "Compra atualizada com sucesso");
+            JOptionPane.showMessageDialog(null, "Compra atualizada com sucesso", "CONCLUÍDO",JOptionPane.NO_OPTION);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Falha ao atualizar medicamento(87098798): " + e);
         } finally {
@@ -253,7 +251,6 @@ public class CompraDAO {
             stmt.setInt(2, comp.getCodCompra());
             
             stmt.execute();
-            JOptionPane.showMessageDialog(null, "Compra atualizada com sucesso");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Falha ao atualizar medicamento(87098798): " + e);
         } finally {
@@ -279,7 +276,7 @@ public class CompraDAO {
                 medDao.adicionarDataComp(medicamentos.get(i).getCodmedicamento());
             }
             
-            JOptionPane.showMessageDialog(null, "Data atualizada");
+            JOptionPane.showMessageDialog(null, "Compra removida com sucesso", "CONCLUÍDO",JOptionPane.NO_OPTION);
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Falha em remover compra(9995558445): " + e);
         } finally {

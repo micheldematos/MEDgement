@@ -125,7 +125,7 @@ public class VendaDAO {
             
             v.setCodpedido(rs.getInt(1));
             
-            JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso!");
+            JOptionPane.showMessageDialog(null, "Venda cadastrada com sucesso", "Concluído",JOptionPane.NO_OPTION);
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Falha em efetuar cadastro (6806048): " + e);
         } finally {
@@ -152,7 +152,6 @@ public class VendaDAO {
             }
             
             addItens = true;
-            JOptionPane.showMessageDialog(null, "Item adicionado com sucesso!");
             
             } catch (HeadlessException | SQLException e) {
                 JOptionPane.showMessageDialog(null, "Falha em adicionar item na compra: " + e);
@@ -181,8 +180,7 @@ public class VendaDAO {
             
             stmt.execute();
             
-            
-            JOptionPane.showMessageDialog(null, "Pedido de venda atualizado com sucesso!");
+            JOptionPane.showMessageDialog(null, "Venda atualizada com sucesso", "Concluído",JOptionPane.NO_OPTION);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Falha em atualizar pedido de venda(987546532): " + e);
         } finally {
@@ -203,7 +201,6 @@ public class VendaDAO {
             stmt.setInt(2, v.getCodpedido());
             
             stmt.execute();
-            JOptionPane.showMessageDialog(null, "Pedido de venda atualizado com sucesso!");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Falha em atualizar pedido de venda(987546532): " + e);
         } finally {
@@ -222,9 +219,8 @@ public class VendaDAO {
             stmt.execute();
             
             MedicamentoDAO dao = new MedicamentoDAO();
-            // dao.adicionarEstoque(v);
             
-            JOptionPane.showMessageDialog(null, "Venda removida com sucesso!");
+            JOptionPane.showMessageDialog(null, "Venda removida com sucesso", "Concluído",JOptionPane.NO_OPTION);
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Falha em remover venda(9295558445): " + e);
         } finally {

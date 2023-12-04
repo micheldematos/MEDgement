@@ -129,7 +129,7 @@ public class UsuarioDAO {
             stmt.setString(6, u.getCargo());
             
             stmt.execute();
-            JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!");
+            JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!", "CONCLUÍDO", JOptionPane.NO_OPTION);
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Falha em cadastrar usuário (65465651): " + e);
         } finally {
@@ -160,7 +160,8 @@ public class UsuarioDAO {
             stmt.setInt(7, u.getCodusuario());
             
             stmt.execute();
-            JOptionPane.showMessageDialog(null, "Cadastro de usuário atualizado!");
+            
+            JOptionPane.showMessageDialog(null, "Cadastro de usuário atualizado!", "CONCLUÍDO", JOptionPane.NO_OPTION);
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Falha em atualizar cadastro do usuário (6540563336): " + e);
         } finally {
@@ -218,7 +219,8 @@ public class UsuarioDAO {
             stmt.setInt(1, u.getCodusuario());
             
             stmt.execute();
-            JOptionPane.showMessageDialog(null, "Usuário inativado com sucesso!");
+            
+            JOptionPane.showMessageDialog(null, "Usuário inativado com sucesso!", "CONCLUÍDO", JOptionPane.NO_OPTION);
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Falha em inativar usuário (22556649770): " + e);
         } finally {
@@ -235,7 +237,7 @@ public class UsuarioDAO {
             stmt.setInt(1, u.getCodusuario());
             
             stmt.execute();
-            JOptionPane.showMessageDialog(null, "Usuário ativado com sucesso!");
+            JOptionPane.showMessageDialog(null, "Cadastro de usuário atualizado!", "CONCLUÍDO", JOptionPane.NO_OPTION);
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Falha em ativar usuário (266979770): " + e);
         } finally {

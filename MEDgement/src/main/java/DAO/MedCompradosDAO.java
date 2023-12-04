@@ -40,8 +40,6 @@ public class MedCompradosDAO {
             
             medDao.adicionarDataComp(medComp.getCodmedicamento());
             
-            JOptionPane.showMessageDialog(null, "Cadastro de medicamento efetuado com sucesso!");
-            
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Falha em cadastrar medicamento: " + e);
         } finally {
@@ -64,7 +62,6 @@ public class MedCompradosDAO {
             
             medDao.adicionarDataComp(medComp.getCodmedicamento());
             cadastro = true;
-            JOptionPane.showMessageDialog(null, "Compra removida com sucesso!");
             
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Falha em remover compra(9295558445): " + e);
@@ -90,8 +87,6 @@ public class MedCompradosDAO {
             stmt.execute();
             
             cadastro = true;
-            
-            JOptionPane.showMessageDialog(null, "Estoque atualizado com sucesso!");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Falha em atualizar estoque (806454): " + e);
         } finally {
@@ -116,8 +111,6 @@ public class MedCompradosDAO {
             stmt.execute();
             
             cadastro = true;
-            
-            JOptionPane.showMessageDialog(null, "Estoque atualizado com sucesso!");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Falha em atualizar estoque (806454): " + e);
         } finally {
@@ -148,8 +141,6 @@ public class MedCompradosDAO {
             stmt.execute();
             medDao.adicionarDataComp(medComp.getCodmedicamento());
             cadastro = true;
-            
-            JOptionPane.showMessageDialog(null, "Compra atualizada com sucesso!");
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Falha em atualizar compra (9295558445): " + e);
         } finally {

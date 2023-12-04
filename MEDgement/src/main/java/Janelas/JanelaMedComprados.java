@@ -377,7 +377,9 @@ public final class JanelaMedComprados extends javax.swing.JFrame {
 
     private void botaoAddItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAddItemActionPerformed
         // TODO add your handling code here:
-        if (MedComboBox.getSelectedIndex() != -1 && medList.get(MedComboBox.getSelectedIndex()).getSituacaomed() == 1) {
+        int addItem = JOptionPane.showConfirmDialog(null, "Inserir item em compra?","CONFIRMAR",JOptionPane.YES_NO_OPTION);
+        
+        if (MedComboBox.getSelectedIndex() != -1 && medList.get(MedComboBox.getSelectedIndex()).getSituacaomed() == 1 && addItem == 0) {
             boolean medCadastrado = false;
         
             if (TabMedComp.getRowCount() == 0) {
@@ -404,6 +406,8 @@ public final class JanelaMedComprados extends javax.swing.JFrame {
         } else if (medList.get(MedComboBox.getSelectedIndex()).getSituacaomed() == 0) {
             JOptionPane.showMessageDialog(null, "Ative o cadastro do medicamento em sua tela de cadastro",
                     "MEDICAMENTO INATIVADO!",NORMAL);
+        } else if (addItem == 1){
+            ocultar();
         }
         
     }//GEN-LAST:event_botaoAddItemActionPerformed
@@ -426,7 +430,6 @@ public final class JanelaMedComprados extends javax.swing.JFrame {
 
             if (cadastro != 0) {
                 if (compDao.addItensComp(comp, medComprados)) {
-                    System.out.println("Cadastro feito com sucesso querida!!");
                     this.dispose();
                     ocultar();
                 } else {
@@ -722,7 +725,7 @@ public final class JanelaMedComprados extends javax.swing.JFrame {
                     MedComprados medCompAnt = new MedComprados();
                     MedCompradosDAO medCompDao = new MedCompradosDAO();
                     
-                    medComp.setDatacompra(caixaInsData.getText());
+                    medComp.setDatacompra(converterData(caixaInsData.getText()));
                     medComp.setValorUnMed(Double.valueOf(caixaInsValorUnMed.getText()));
                     medComp.setValorComp(Double.parseDouble(caixaInsValComp.getText()));
                     medComp.setQuantidademed(Integer.parseInt(caixaInsQntdMed.getText()));

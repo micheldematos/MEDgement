@@ -134,7 +134,7 @@ public class MedicamentoDAO {
             stmt.setInt(8, med.getCodfornecedor());
             
             stmt.execute();
-            JOptionPane.showMessageDialog(null, "Cadastro de medicamento efetuado com sucesso!");
+            JOptionPane.showMessageDialog(null, "Cadastro de medicamento efetuado com sucesso!", "CONCLUÍDO", JOptionPane.NO_OPTION);
             
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Falha em cadastrar medicamento: " + e);
@@ -161,7 +161,8 @@ public class MedicamentoDAO {
             stmt.setInt(5, med.getCodmedicamento());
             
             stmt.execute();
-            JOptionPane.showMessageDialog(null, "Atualização de medicamento efetuado com sucesso!");
+            
+            JOptionPane.showMessageDialog(null, "Medicamento atualizado com sucesso!", "CONCLUÍDO", JOptionPane.NO_OPTION);
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Falha em atualizar medicamento: " + e);
         } finally {
@@ -203,7 +204,8 @@ public class MedicamentoDAO {
             stmt.setInt(1, med.getCodmedicamento());
             
             stmt.execute();
-            JOptionPane.showMessageDialog(null, "Medicamento ativado com sucesso!");
+            
+            JOptionPane.showMessageDialog(null, "Medicamento ativado com sucesso!", "CONCLUÍDO", JOptionPane.NO_OPTION);
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Falha em ativar medicamento (6695549770): " + e);
         } finally {
@@ -220,24 +222,13 @@ public class MedicamentoDAO {
             stmt.setInt(1, med.getCodmedicamento());
             
             stmt.execute();
-            JOptionPane.showMessageDialog(null, "Medicamento ativado com sucesso!");
+            
+            JOptionPane.showMessageDialog(null, "Medicamento inativado com sucesso!", "CONCLUÍDO", JOptionPane.NO_OPTION);
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Falha em ativar medicamento (6695549770): " + e);
         } finally {
             ConectarBd.closeConnection(c, stmt);
         }
-    }
-    
-    public String teste (int codMed){
-        Connection c = ConectarBd.getConnection();
-        PreparedStatement stmt = null;
-        
-        CompraDAO compDao = new CompraDAO();
-        
-        String ultimaData = compDao.ultimaData(codMed);
-        double ultimoValor = compDao.ultimoValor(codMed);
-        
-        return ultimaData;
     }
     
     public boolean adicionarDataComp(int codMed){
@@ -255,23 +246,16 @@ public class MedicamentoDAO {
                 if (null == ultimaData) {
                         ultimaData = null;
                         ultimoValor = 0.00;
-                        System.out.println(ultimaData + "  " + ultimoValor + "  " + codMed + " TESTEEEEEEE");
                 }
-                
-                System.out.println("testeeeeeeeeeeeeeeeeeeeeeeeeeeee");
                 
                 stmt = c.prepareStatement("UPDATE medicamento SET dataultimacompra = ?, valorcusto = ? WHERE codmedicamento = ?;");
                 stmt.setString(1, ultimaData);
                 stmt.setDouble(2, ultimoValor);
                 stmt.setInt(3, codMed);
 
-                System.out.println(stmt + "   ");
-                System.out.println(ultimaData + "  " + ultimoValor);
-
                 stmt.execute();
                 
             validacao = true;
-            JOptionPane.showMessageDialog(null, "Atualização de medicamento efetuado com sucesso!");
             } catch (HeadlessException | SQLException e) {
                 JOptionPane.showMessageDialog(null, "Falha em atualizar medicamento: " + e);
             } finally {

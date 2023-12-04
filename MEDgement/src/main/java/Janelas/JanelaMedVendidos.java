@@ -22,6 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 
@@ -382,7 +383,10 @@ public final class JanelaMedVendidos extends javax.swing.JFrame {
 
     private void botaoAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAddActionPerformed
         // TODO add your handling code here:
-        if (MedComboBox.getSelectedIndex() != -1 && medList.get(MedComboBox.getSelectedIndex()).getSituacaomed() == 1) {
+        
+        int addItem = JOptionPane.showConfirmDialog(null, "Inserir item em venda?","CONFIRMAR",JOptionPane.YES_NO_OPTION);
+        
+        if (MedComboBox.getSelectedIndex() != -1 && medList.get(MedComboBox.getSelectedIndex()).getSituacaomed() == 1 && addItem == 0) {
             boolean  medcadastrado = false;
         
             int qntdVendida = Integer.parseInt(caixaInsQntdMed.getText());
@@ -415,6 +419,8 @@ public final class JanelaMedVendidos extends javax.swing.JFrame {
             }
         } else if (medList.get(MedComboBox.getSelectedIndex()).getSituacaomed() == 0) {
             JOptionPane.showMessageDialog(null, "Ativar cadastro de medicamento!", "MEDICAMENTO INATIVADO", NORMAL);
+        } else if (addItem == 1) {
+            ocultar();
         }
     }//GEN-LAST:event_botaoAddActionPerformed
 
@@ -487,6 +493,7 @@ public final class JanelaMedVendidos extends javax.swing.JFrame {
                 } else {
                     attItens(botaoPress);
                     calcularTotal();
+                    ocultar();
                 }
             } else if (alterarItem == 1) {
                 ocultar();
@@ -522,7 +529,13 @@ public final class JanelaMedVendidos extends javax.swing.JFrame {
                 vendDao.deletar(v);
             }
         } else {
-            this.dispose();
+            int fecharTela = JOptionPane.showConfirmDialog(null, "Fechar tela?", "CONFIRMAÇÃO", JOptionPane.YES_NO_OPTION);
+            
+            if (fecharTela == 0) {
+                this.dispose();
+            } else {
+                ocultar();
+            }            
         }
     }//GEN-LAST:event_botaoCadastrarVendaActionPerformed
 
@@ -562,6 +575,10 @@ public final class JanelaMedVendidos extends javax.swing.JFrame {
         tituloTabela.getDefaultRenderer();
         
         centralizar.setHorizontalAlignment(JLabel.CENTER);
+        
+        UIManager.put("OptionPane.cancelButtonText", "Cancelar"); 
+        UIManager.put("OptionPane.noButtonText", "Não"); 
+        UIManager.put("OptionPane.yesButtonText", "Sim");
     }
     
     public void ocultar(){
@@ -639,7 +656,7 @@ public final class JanelaMedVendidos extends javax.swing.JFrame {
                     MedVendidos medVendAnt = new MedVendidos();
                     MedVendidosDAO medVendDao = new MedVendidosDAO();
 
-                    medVend.setDatavenda(caixaInsData.getText());
+                    medVend.setDatavenda(converterData(caixaInsData.getText()));
                     medVend.setValorUnMed(Double.parseDouble(caixaInsValorUnMed.getText()));
                     medVend.setValorvenda(Double.parseDouble(caixaInsValVend.getText()));
                     medVend.setQuantidademed(Integer.parseInt(caixaInsQntdMed.getText()));

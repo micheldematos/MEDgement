@@ -37,8 +37,6 @@ public class MedVendidosDAO {
             
             cadastro = true;
             
-            JOptionPane.showMessageDialog(null, "Cadastro de medicamento efetuado com sucesso!");
-            
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Falha em cadastrar medicamento: " + e);
         } finally {
@@ -63,8 +61,6 @@ public class MedVendidosDAO {
             medDao.adicionarDataComp(medVend.getCodmedicamento());
             
             cadastro = true;
-            
-            JOptionPane.showMessageDialog(null, "Venda removida com sucesso!");
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Falha em remover venda(9295558445): " + e);
         } finally {
@@ -94,8 +90,6 @@ public class MedVendidosDAO {
             stmt.execute();
             
             cadastro = true;
-            
-            JOptionPane.showMessageDialog(null, "Venda atualizada com sucesso!");
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Falha em remover venda(9295558445): " + e);
         } finally {
@@ -120,8 +114,6 @@ public class MedVendidosDAO {
             stmt.execute();
             
             cadastro = true;
-            
-            JOptionPane.showMessageDialog(null, "Estoque atualizado com sucesso!");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Falha em atualizar estoque (806454): " + e);
         } finally {
@@ -146,8 +138,6 @@ public class MedVendidosDAO {
             stmt.execute();
             
             cadastro = true;
-            
-            JOptionPane.showMessageDialog(null, "Estoque atualizado com sucesso!");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Falha em atualizar estoque (806454): " + e);
         } finally {
